@@ -53,7 +53,7 @@
                                     type="email" 
                                     class="form-control custom-input" 
                                     id="emailAddress" 
-                                    name="email"
+                                    name="emailAddress"
                                     placeholder="Email Address"
                                     required
                                 >
