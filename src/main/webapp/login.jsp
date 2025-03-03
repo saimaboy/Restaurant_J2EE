@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-
+<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.SQLException" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +23,7 @@
                         <label class="form-check-label text-white fw-medium" for="agreeTerms">
                            Don't have an account?
                         </label>
-                        <a href="reset-password.html" class="text-danger fw-bold">Signup</a>
+                        <a href="signup.jsp" class="text-danger fw-bold">Signup</a>
                     </div>
                     <form id="signupForm" action="LoginServlet" method="post">
                         
@@ -35,6 +33,7 @@
                                     type="email" 
                                     class="form-control custom-input" 
                                     id="emailAddress" 
+                                    name="emailAddress"
                                     placeholder="Email Address"
                                     required
                                 >
@@ -48,6 +47,7 @@
                                     type="password" 
                                     class="form-control custom-input" 
                                     id="password" 
+                                    name="password"
                                     placeholder="Password"
                                     required
                                 >
@@ -83,7 +83,7 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
-    <script src="js/signup.js"></script>
+  
 </body>
 </html>
 

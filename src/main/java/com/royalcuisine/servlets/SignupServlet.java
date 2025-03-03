@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
 
-@WebServlet("/SignupServlet")
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+
 public class SignupServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -48,7 +48,7 @@ public class SignupServlet extends HttpServlet {
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("User registered successfully!");
-                response.sendRedirect("login.jsp?signupSuccess=true");
+                response.sendRedirect("login.jsp");
             } else {
                 System.out.println("User registration failed! No rows affected.");
                 response.sendRedirect("signup.jsp?error=Signup failed.");

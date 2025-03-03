@@ -25,6 +25,7 @@
                                         type="text" 
                                         class="form-control custom-input" 
                                         id="firstName" 
+                                        name="firstName"
                                         placeholder="First Name"
                                         required
                                     >
@@ -37,6 +38,7 @@
                                         type="text" 
                                         class="form-control custom-input" 
                                         id="lastName" 
+                                        name="lastName"
                                         placeholder="Last Name"
                                         required
                                     >
@@ -51,6 +53,7 @@
                                     type="email" 
                                     class="form-control custom-input" 
                                     id="emailAddress" 
+                                    name="email"
                                     placeholder="Email Address"
                                     required
                                 >
@@ -64,6 +67,7 @@
                                     type="password" 
                                     class="form-control custom-input" 
                                     id="password" 
+                                    name="password"
                                     placeholder="Password"
                                     required
                                 >
@@ -84,6 +88,7 @@
                                     type="password" 
                                     class="form-control custom-input" 
                                     id="confirmPassword" 
+                                    name="confirmPassword"
                                     placeholder="Confirm Password"
                                     required
                                 >
@@ -106,6 +111,7 @@
                                         type="tel" 
                                         class="form-control custom-input border-start-0" 
                                         id="contactNumber" 
+                                        name="contactNumber"
                                         placeholder="Contact Number"
                                         required
                                     >
@@ -138,7 +144,7 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
-    <script src="js/signup.js"></script>
+ 
 </body>
 </html>
 
