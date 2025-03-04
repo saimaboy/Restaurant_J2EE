@@ -48,7 +48,7 @@ public class BookTableServlet extends HttpServlet {
             if (rowsInserted > 0) {
                 out.println("<script type='text/javascript'>");
                 out.println("alert('Reservation Successful!');");
-                out.println("window.location='index.jsp';");
+                out.println("window.location='home.jsp';");
                 out.println("</script>");
             }
         } catch (SQLException e) {

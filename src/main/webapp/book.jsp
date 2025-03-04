@@ -49,7 +49,7 @@
       <div class="row mt-4">
         <div class="col-md-4">
           <div class="card bg-dark text-white p-3">
-            <img src="assets/standard-package.jpg" class="card-img-top" alt="Standard Package">
+            <img src="https://img.freepik.com/free-photo/reserved-table-restaurant_53876-30324.jpg" class="card-img-top" alt="Standard Package">
             <h3 class="fs-4 mt-3">Standard Package</h3>
             <p>$50 per person - Includes 3-course meal</p>
             <button class="btn btn-gold select-package" data-package="Standard Package" data-details="$50 per person - Includes 3-course meal">Select</button>
@@ -57,7 +57,7 @@
         </div>
         <div class="col-md-4">
           <div class="card bg-dark text-white p-3">
-            <img src="assets/premium-package.jpg" class="card-img-top" alt="Premium Package">
+            <img src="https://img.freepik.com/free-photo/reserved-table-restaurant_53876-88.jpg" class="card-img-top" alt="Premium Package">
             <h3 class="fs-4 mt-3">Premium Package</h3>
             <p>$80 per person - Includes 5-course meal & wine</p>
             <button class="btn btn-gold select-package" data-package="Premium Package" data-details="$80 per person - Includes 5-course meal & wine">Select</button>
@@ -65,7 +65,7 @@
         </div>
         <div class="col-md-4">
           <div class="card bg-dark text-white p-3">
-            <img src="assets/luxury-package.jpg" class="card-img-top" alt="Luxury Package">
+            <img src="https://t3.ftcdn.net/jpg/01/82/82/62/360_F_182826259_9fO8JRWetocKdY37FHGCvIKfkraaJfWI.jpg" class="card-img-top" alt="Luxury Package">
             <h3 class="fs-4 mt-3">Luxury Package</h3>
             <p>$120 per person - Includes VIP dining & champagne</p>
             <button class="btn btn-gold select-package" data-package="Luxury Package" data-details="$120 per person - Includes VIP dining & champagne">Select</button>

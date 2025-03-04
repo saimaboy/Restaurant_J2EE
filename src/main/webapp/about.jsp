@@ -44,7 +44,7 @@
   </header>
 
   <!-- About Us Section -->
-  <section class="py-5 text-center" style="background: url('assets/Rectangle64.png') no-repeat center center/cover;">
+  <section class="py-5 text-center" style="background: url('https://media.istockphoto.com/id/1368500097/photo/portrait-of-a-business-owner-smiling-with-his-staff-at-a-restaurant.jpg?s=612x612&w=0&k=20&c=6jCBdOetOc6sMCQlw6bXbGStyXJUdZ2ku2BrL4XQJEg=') no-repeat center center/cover;">
     <div class="container py-5">
       <h2 class="font-serif fst-italic display-5 text-amber">Our Story</h2>
       <p class="text-white fs-4">A Journey of Taste & Excellence</p>
