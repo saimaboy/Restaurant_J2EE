@@ -4,14 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us - Royal Cuisine</title>
+  <title>Offers - Royal Cuisine</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-black text-white">
 
-  <!-- Header/Navigation -->
+   <!-- Header/Navigation -->
   <header class="py-3 bg-black">
     <div class="container">
       <div class="row align-items-center">
@@ -38,52 +38,74 @@
     </div>
   </header>
 
-  <!-- Contact Us Section -->
+  <!-- Offers Section -->
   <section class="py-5 text-center">
     <div class="container">
-      <h2 class="font-serif fst-italic display-5 text-warning">Contact Us</h2>
-      <p class="lead">We would love to hear from you! Please fill out the form below or reach out to us through any of the contact methods listed.</p>
+      <h2 class="font-serif fst-italic display-5 text-warning">Special Offers</h2>
+      <p class="lead">Explore our latest offers and promotions. Enjoy special discounts and more at Royal Cuisine!</p>
 
-      <!-- Contact Form -->
-      <form action="sendContactMessage.jsp" method="POST" class="border p-4 mx-auto" style="max-width: 600px;">
-        <div class="mb-3">
-            <label for="name" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+      <!-- Offer 1 -->
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <div class="card bg-dark text-white">
+            <img src="assets/offer1.jpg" class="card-img-top" alt="Offer 1">
+            <div class="card-body">
+              <h5 class="card-title">50% Off on Selected Meals</h5>
+              <p class="card-text">Get 50% off on selected meals when you dine in with us. Offer valid for a limited time only!</p>
+              <a href="book.jsp" class="btn btn-warning">Book Now</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Offer 2 -->
+        <div class="col-md-4">
+          <div class="card bg-dark text-white">
+            <img src="assets/offer2.jpg" class="card-img-top" alt="Offer 2">
+            <div class="card-body">
+              <h5 class="card-title">Buy 1 Get 1 Free on Beverages</h5>
+              <p class="card-text">Enjoy our wide range of beverages with our Buy 1 Get 1 Free offer! Perfect for a refreshing treat.</p>
+              <a href="book.jsp" class="btn btn-warning">Book Now</a>
+            </div>
+          </div>
         </div>
 
-        <div class="mb-3">
-            <label for="email" class="form-label">Email Address</label>
-            <input type="email" class="form-control" id="email" name="email" required>
+        <!-- Offer 3 -->
+        <div class="col-md-4">
+          <div class="card bg-dark text-white">
+            <img src="assets/offer3.jpg" class="card-img-top" alt="Offer 3">
+            <div class="card-body">
+              <h5 class="card-title">Free Dessert with Every Meal</h5>
+              <p class="card-text">Indulge in a complimentary dessert with every main meal. Satisfy your sweet tooth at Royal Cuisine.</p>
+              <a href="book.jsp" class="btn btn-warning">Book Now</a>
+            </div>
+          </div>
         </div>
-
-        <div class="mb-3">
-            <label for="phone" class="form-label">Phone Number</label>
-            <input type="text" class="form-control" id="phone" name="phone" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="message" class="form-label">Your Message</label>
-            <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-warning">Send Message</button>
-      </form>
-
-      <!-- Contact Information -->
-      <div class="mt-5">
-        <h4>Contact Information:</h4>
-        <p>
-          <strong>Address:</strong><br>
-          1234 Royal Street, Downtown, Cityname, Country<br>
-          <strong>Phone:</strong> +123 456 7890<br>
-          <strong>Email:</strong> contact@royalcuisine.com
-        </p>
       </div>
 
-      <!-- Google Map Embed -->
+      <!-- Offer 4 (Optional) -->
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <div class="card bg-dark text-white">
+            <img src="assets/offer4.jpg" class="card-img-top" alt="Offer 4">
+            <div class="card-body">
+              <h5 class="card-title">Loyalty Program: Earn Points</h5>
+              <p class="card-text">Join our loyalty program and earn points with every visit. Redeem your points for discounts on future meals.</p>
+              <a href="loyalty.jsp" class="btn btn-warning">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination (Optional) -->
       <div class="mt-4">
-        <h4>Find Us:</h4>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.313035588287!2d144.96305831531456!3d-37.8141067797516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5c2ed7a533%3A0x5045675218cfc50!2sRoyal%20Cuisine!5e0!3m2!1sen!2sus!4v1624384097223!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </nav>
       </div>
     </div>
   </section>

@@ -11,7 +11,7 @@
 </head>
 <body class="bg-black text-white">
 
-  <!-- Header/Navigation -->
+   <!-- Header/Navigation -->
   <header class="py-3 bg-black">
     <div class="container">
       <div class="row align-items-center">
@@ -22,11 +22,12 @@
         <div class="col-md-9">
           <nav class="d-none d-md-flex justify-content-end align-items-center">
             <a href="home.jsp" class="text-white text-decoration-none me-4 nav-link">Home</a>
-            <a href="about.jsp" class="text-white text-decoration-none me-4 nav-link">About</a>
+            <a href="about.jsp" class="text-white text-decoration-none me-4 nav-link">about</a>
             <a href="menu.jsp" class="text-white text-decoration-none me-4 nav-link">Menu</a>
-            <a href="location.jsp" class="text-white text-decoration-none me-4 nav-link active">Location</a>
+            <a href="offers.jsp" class="text-white text-decoration-none me-4 nav-link">Offers</a>
+            <a href="location.jsp" class="text-white text-decoration-none me-4 nav-link">Location</a>
             <a href="blog.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
-            <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact</a>
+            <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact & Feedback</a>
             <a href="book.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
             <a href="#" class="text-white text-decoration-none">
               <i class="bi bi-person"></i>
