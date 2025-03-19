@@ -1,20 +1,19 @@
 <%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.ResultSet" %>
 <%@ page import="java.util.List, java.util.ArrayList" %>
-<%@ page import="com.royalcuisine.servlets.GetPackagesServlet.Package" %>
+<%@ page import="com.royalcuisine.servlets.MenuServlet.Meal" %>
+<%@ page import="com.royalcuisine.servlets.MenuServlet.Beverage" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book a Table - Royal Cuisine</title>
-  <!-- Bootstrap CSS -->
+  <title>Menu - Royal Cuisine</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-black text-white">
+
   <!-- Header/Navigation -->
   <header class="py-3 bg-black">
     <div class="container">
@@ -41,76 +40,123 @@
     </div>
   </header>
 
-  <!-- Booking Packages Section -->
+  <!-- Menu Section -->
   <section class="py-5 text-center">
     <div class="container">
-      <h2 class="font-serif fst-italic display-5 text-amber">Choose a Package</h2>
+      <h2 class="font-serif fst-italic display-5 text-amber">Our Menu</h2>
       <div class="row mt-4">
+
         <% 
         // JDBC connection details
         String jdbcURL = "jdbc:mysql://localhost:3308/royal_cuisine";
         String jdbcUsername = "root";
         String jdbcPassword = "12345678";
         
-        List<Package> packageList = new ArrayList<>();
+        List<Meal> mealList = new ArrayList<>();
+        List<Beverage> beverageList = new ArrayList<>();
 
         try {
-        	 Class.forName("com.mysql.cj.jdbc.Driver");
             // Establish connection to the database
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
 
-            // Query to fetch packages
-            String sql = "SELECT package_name, image_url, price, description FROM packages";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
+            // Query to fetch meals
+            String mealSql = "SELECT name, description, price, image_url FROM meals";
+            PreparedStatement mealStatement = connection.prepareStatement(mealSql);
+            ResultSet mealResultSet = mealStatement.executeQuery();
 
-            // Fetch and store package details in packageList
-            while (resultSet.next()) {
-                Package pkg = new Package();
-                pkg.setPackageName(resultSet.getString("package_name"));
-                pkg.setImageUrl(resultSet.getString("image_url"));
-                pkg.setPrice(resultSet.getDouble("price"));
-                pkg.setDescription(resultSet.getString("description"));
-                packageList.add(pkg);
+            // Fetch and store meal details in mealList
+            while (mealResultSet.next()) {
+                Meal meal = new Meal();
+                meal.setName(mealResultSet.getString("name"));
+                meal.setDescription(mealResultSet.getString("description"));
+                meal.setPrice(mealResultSet.getDouble("price"));
+                meal.setImageUrl(mealResultSet.getString("image_url"));
+                mealList.add(meal);
+            }
+
+            // Query to fetch beverages
+            String beverageSql = "SELECT name, description, price, image_url FROM beverages";
+            PreparedStatement beverageStatement = connection.prepareStatement(beverageSql);
+            ResultSet beverageResultSet = beverageStatement.executeQuery();
+
+            // Fetch and store beverage details in beverageList
+            while (beverageResultSet.next()) {
+                Beverage beverage = new Beverage();
+                beverage.setName(beverageResultSet.getString("name"));
+                beverage.setDescription(beverageResultSet.getString("description"));
+                beverage.setPrice(beverageResultSet.getDouble("price"));
+                beverage.setImageUrl(beverageResultSet.getString("image_url"));
+                beverageList.add(beverage);
             }
 
             // Close resources
-            resultSet.close();
-            statement.close();
+            mealResultSet.close();
+            mealStatement.close();
+            beverageResultSet.close();
+            beverageStatement.close();
             connection.close();
 
         } catch (Exception e) {
-            // Handle exceptions and show error message
-            out.println("<div class='alert alert-danger'>Error fetching packages. Please try again later.</div>");
             e.printStackTrace();
+            out.println("<div class='alert alert-danger'>Error fetching meals and beverages: " + e.getMessage() + "</div>");
         }
 
-        // Check if the packageList is not empty
-        if (!packageList.isEmpty()) {
-            // Display the packages dynamically
-            for (Package pkg : packageList) {
         %>
-        <!-- Display the package -->
-        <div class="col-md-4">
+
+        <!-- Display Meals -->
+        <h3 class="mt-5">Meals</h3>
+        <form action="reservation.jsp" method="POST">
+        <div class="row">
+        <% 
+            if (!mealList.isEmpty()) {
+                for (Meal meal : mealList) {
+        %>
+          <div class="col-md-4 mt-4">
             <div class="card bg-dark text-white p-3">
-                <img src="<%= pkg.getImageUrl() %>" alt="<%= pkg.getPackageName() %>" class="card-img-top" />
-                <h3 class="fs-4 mt-3"><%= pkg.getPackageName() %></h3>
-                <p>$<%= pkg.getPrice() %> per person - <%= pkg.getDescription() %></p>
-                <form action="menu.jsp" method="GET">
-                    <input type="hidden" name="package" value="<%= pkg.getPackageName() %>">
-                    <button type="submit" class="btn btn-gold">Select <%= pkg.getPackageName() %> Package</button>
-                </form>
+                <img src="<%= meal.getImageUrl() %>" alt="<%= meal.getName() %>" class="card-img-top" />
+                <h3 class="fs-4 mt-3"><%= meal.getName() %></h3>
+                <p><%= meal.getDescription() %></p>
+                <p>$<%= meal.getPrice() %></p>
+                <input type="checkbox" name="meals" value="<%= meal.getName() %>"> Select Meal
             </div>
-        </div>
+          </div>
         <% 
+                }
             }
-        } else {
         %>
-        <p>No packages available at the moment.</p>
+        </div>
+
+        <!-- Display Beverages -->
+        <h3 class="mt-5">Beverages</h3>
+        <div class="row">
         <% 
-        }
+            if (!beverageList.isEmpty()) {
+                for (Beverage beverage : beverageList) {
         %>
-      </div>
+          <div class="col-md-4 mt-4">
+            <div class="card bg-dark text-white p-3">
+                <img src="<%= beverage.getImageUrl() %>" alt="<%= beverage.getName() %>" class="card-img-top" />
+                <h3 class="fs-4 mt-3"><%= beverage.getName() %></h3>
+                <p><%= beverage.getDescription() %></p>
+                <p>$<%= beverage.getPrice() %></p>
+                <input type="checkbox" name="beverages" value="<%= beverage.getName() %>"> Select Beverage
+            </div>
+          </div>
+        <% 
+                }
+            }
+        %>
+        </div>
+
+        <!-- Pass Package Data and Submit -->
+        <input type="hidden" name="package" value="<%= request.getParameter("package") %>">
+        
+        <!-- Book Button -->
+        <div class="mt-4">
+            <button type="submit" class="btn btn-gold">Proceed to Book</button>
+        </div>
+        </form>
     </div>
   </section>
 
@@ -118,7 +164,6 @@
   <footer class="bg-black text-white py-5">
     <div class="container">
       <div class="row">
-        <!-- Open Hours -->
         <div class="col-md-4 mb-4 mb-md-0">
           <h3 class="fs-4 mb-4">Open Hours</h3>
           <div class="row">
@@ -139,19 +184,14 @@
           </div>
         </div>
         
-        <!-- Newsletter -->
         <div class="col-md-4 mb-4 mb-md-0">
           <h3 class="fs-4 mb-4">Newsletter</h3>
-          <p class="mb-3 text-gray">
-            Far far away, behind the word mountains, far from the countries.
-          </p>
           <div class="d-flex flex-column gap-2">
             <input type="email" placeholder="Enter E-mail address" class="form-control bg-transparent text-white border-gray">
             <button class="btn btn-gold text-white">Subscribe</button>
           </div>
         </div>
-        
-        <!-- Instagram -->
+
         <div class="col-md-4 px-4">
           <h3 class="fs-4 mb-4">Instagram</h3>
           <div class="d-flex align-items-center">
@@ -163,7 +203,6 @@
     </div>
   </footer>
 
-  <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

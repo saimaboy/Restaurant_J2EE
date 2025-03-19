@@ -57,4 +57,24 @@
     <servlet-name>BookTableServlet</servlet-name>
     <url-pattern>/BookTableServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetPackagesServlet</display-name>
+    <servlet-name>GetPackagesServlet</servlet-name>
+    <servlet-class>com.royalcuisine.servlets.GetPackagesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetPackagesServlet</servlet-name>
+    <url-pattern>/GetPackagesServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MenuServlet</display-name>
+    <servlet-name>MenuServlet</servlet-name>
+    <servlet-class>com.royalcuisine.servlets.MenuServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MenuServlet</servlet-name>
+    <url-pattern>/MenuServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

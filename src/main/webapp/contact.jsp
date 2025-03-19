@@ -1,20 +1,16 @@
-<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.ResultSet" %>
-<%@ page import="java.util.List, java.util.ArrayList" %>
-<%@ page import="com.royalcuisine.servlets.GetPackagesServlet.Package" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book a Table - Royal Cuisine</title>
-  <!-- Bootstrap CSS -->
+  <title>Contact Us - Royal Cuisine</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-black text-white">
+
   <!-- Header/Navigation -->
   <header class="py-3 bg-black">
     <div class="container">
@@ -30,7 +26,7 @@
             <a href="menu.jsp" class="text-white text-decoration-none me-4 nav-link">Menu</a>
             <a href="location.jsp" class="text-white text-decoration-none me-4 nav-link">Location</a>
             <a href="blog.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
-            <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact</a>
+            <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link active">Contact</a>
             <a href="book.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
             <a href="#" class="text-white text-decoration-none">
               <i class="bi bi-person"></i>
@@ -41,75 +37,52 @@
     </div>
   </header>
 
-  <!-- Booking Packages Section -->
+  <!-- Contact Us Section -->
   <section class="py-5 text-center">
     <div class="container">
-      <h2 class="font-serif fst-italic display-5 text-amber">Choose a Package</h2>
-      <div class="row mt-4">
-        <% 
-        // JDBC connection details
-        String jdbcURL = "jdbc:mysql://localhost:3308/royal_cuisine";
-        String jdbcUsername = "root";
-        String jdbcPassword = "12345678";
-        
-        List<Package> packageList = new ArrayList<>();
+      <h2 class="font-serif fst-italic display-5 text-warning">Contact Us</h2>
+      <p class="lead">We would love to hear from you! Please fill out the form below or reach out to us through any of the contact methods listed.</p>
 
-        try {
-        	 Class.forName("com.mysql.cj.jdbc.Driver");
-            // Establish connection to the database
-            Connection connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-
-            // Query to fetch packages
-            String sql = "SELECT package_name, image_url, price, description FROM packages";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-
-            // Fetch and store package details in packageList
-            while (resultSet.next()) {
-                Package pkg = new Package();
-                pkg.setPackageName(resultSet.getString("package_name"));
-                pkg.setImageUrl(resultSet.getString("image_url"));
-                pkg.setPrice(resultSet.getDouble("price"));
-                pkg.setDescription(resultSet.getString("description"));
-                packageList.add(pkg);
-            }
-
-            // Close resources
-            resultSet.close();
-            statement.close();
-            connection.close();
-
-        } catch (Exception e) {
-            // Handle exceptions and show error message
-            out.println("<div class='alert alert-danger'>Error fetching packages. Please try again later.</div>");
-            e.printStackTrace();
-        }
-
-        // Check if the packageList is not empty
-        if (!packageList.isEmpty()) {
-            // Display the packages dynamically
-            for (Package pkg : packageList) {
-        %>
-        <!-- Display the package -->
-        <div class="col-md-4">
-            <div class="card bg-dark text-white p-3">
-                <img src="<%= pkg.getImageUrl() %>" alt="<%= pkg.getPackageName() %>" class="card-img-top" />
-                <h3 class="fs-4 mt-3"><%= pkg.getPackageName() %></h3>
-                <p>$<%= pkg.getPrice() %> per person - <%= pkg.getDescription() %></p>
-                <form action="menu.jsp" method="GET">
-                    <input type="hidden" name="package" value="<%= pkg.getPackageName() %>">
-                    <button type="submit" class="btn btn-gold">Select <%= pkg.getPackageName() %> Package</button>
-                </form>
-            </div>
+      <!-- Contact Form -->
+      <form action="sendContactMessage.jsp" method="POST" class="border p-4 mx-auto" style="max-width: 600px;">
+        <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
         </div>
-        <% 
-            }
-        } else {
-        %>
-        <p>No packages available at the moment.</p>
-        <% 
-        }
-        %>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="phone" name="phone" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="message" class="form-label">Your Message</label>
+            <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-warning">Send Message</button>
+      </form>
+
+      <!-- Contact Information -->
+      <div class="mt-5">
+        <h4>Contact Information:</h4>
+        <p>
+          <strong>Address:</strong><br>
+          1234 Royal Street, Downtown, Cityname, Country<br>
+          <strong>Phone:</strong> +123 456 7890<br>
+          <strong>Email:</strong> contact@royalcuisine.com
+        </p>
+      </div>
+
+      <!-- Google Map Embed -->
+      <div class="mt-4">
+        <h4>Find Us:</h4>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.313035588287!2d144.96305831531456!3d-37.8141067797516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5c2ed7a533%3A0x5045675218cfc50!2sRoyal%20Cuisine!5e0!3m2!1sen!2sus!4v1624384097223!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
       </div>
     </div>
   </section>
@@ -118,7 +91,6 @@
   <footer class="bg-black text-white py-5">
     <div class="container">
       <div class="row">
-        <!-- Open Hours -->
         <div class="col-md-4 mb-4 mb-md-0">
           <h3 class="fs-4 mb-4">Open Hours</h3>
           <div class="row">
@@ -138,20 +110,15 @@
             <div class="col-6">9:00 - 02:00</div>
           </div>
         </div>
-        
-        <!-- Newsletter -->
+
         <div class="col-md-4 mb-4 mb-md-0">
           <h3 class="fs-4 mb-4">Newsletter</h3>
-          <p class="mb-3 text-gray">
-            Far far away, behind the word mountains, far from the countries.
-          </p>
           <div class="d-flex flex-column gap-2">
             <input type="email" placeholder="Enter E-mail address" class="form-control bg-transparent text-white border-gray">
             <button class="btn btn-gold text-white">Subscribe</button>
           </div>
         </div>
-        
-        <!-- Instagram -->
+
         <div class="col-md-4 px-4">
           <h3 class="fs-4 mb-4">Instagram</h3>
           <div class="d-flex align-items-center">
@@ -163,7 +130,6 @@
     </div>
   </footer>
 
-  <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
