@@ -27,7 +27,7 @@
             <a href="blog.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
             <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact & Feedback</a>
             <a href="book.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
-            <a href="#" class="text-white text-decoration-none">
+            <a href="profile.jsp" class="text-white text-decoration-none">
               <i class="bi bi-person"></i>
             </a>
           </nav>
@@ -79,7 +79,7 @@
         </ul>
 
         <!-- Reservation Form inside Border Box -->
-        <form action="BookTableServlet" method="POST" class="border p-4">
+        <form action="BookTableServlet" method="POST" class="border p-4 mx-auto"" style="max-width: 600px;">
             <input type="hidden" name="package" value="<%= request.getParameter("package") %>">
 
             <div class="mb-3">

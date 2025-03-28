@@ -127,7 +127,7 @@
                                 id="agreeTerms"
                                 required
                             >
-                            <label class="form-check-label text-danger fw-medium" for="agreeTerms">
+                            <label class="form-check-label text-danger fw-medium color-black" for="agreeTerms">
                                 I Agree With Privacy and Policy
                             </label>
                         </div>

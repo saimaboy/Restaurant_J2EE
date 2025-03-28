@@ -29,6 +29,20 @@
         <scope>provided</scope>
     </dependency>
 
+<dependency>
+    <groupId>com.stripe</groupId>
+    <artifactId>stripe-java</artifactId>
+    <version>20.67.0</version>
+</dependency>
+
+
+
+     <dependency>
+          <groupId>com.sun.mail</groupId>
+        <artifactId>javax.mail</artifactId>
+        <version>1.6.2</version> <!-- This is the version you're requesting -->
+    </dependency>
+
     <!-- ✅ Jakarta Expression Language API -->
     <dependency>
         <groupId>jakarta.el</groupId>

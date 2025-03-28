@@ -38,8 +38,62 @@ CREATE TABLE `beverages` (
 
 LOCK TABLES `beverages` WRITE;
 /*!40000 ALTER TABLE `beverages` DISABLE KEYS */;
-INSERT INTO `beverages` VALUES (1,'Mango Smoothie','A refreshing mango smoothie made with fresh mangoes and yogurt.',5.99,'images/mango-smoothie.jpg'),(2,'Lemonade','Freshly squeezed lemonade with a hint of mint.',3.49,'images/lemonade.jpg'),(3,'Iced Coffee','Cold brew coffee served with ice and a touch of vanilla syrup.',4.99,'https://www.allrecipes.com/thmb/Hqro0FNdnDEwDjrEoxhMfKdWfOY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/21667-easy-iced-coffee-ddmfs-4x3-0093-7becf3932bd64ed7b594d46c02d0889f.jpg'),(4,'Red Wine','A glass of full-bodied red wine to complement your meal.',7.99,'images/red-wine.jpg'),(5,'Sparkling Water','Chilled sparkling water with a dash of lime.',2.99,'images/sparkling-water.jpg');
+INSERT INTO `beverages` VALUES (2,'Lemonade','Freshly squeezed lemonade with a hint of mint.',3.49,'images/lemonade.jpg'),(3,'Iced Coffee','Cold brew coffee served with ice and a touch of vanilla syrup.',4.99,'https://www.allrecipes.com/thmb/Hqro0FNdnDEwDjrEoxhMfKdWfOY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/21667-easy-iced-coffee-ddmfs-4x3-0093-7becf3932bd64ed7b594d46c02d0889f.jpg'),(4,'Red Wine','A glass of full-bodied red wine to complement your meal.',7.99,'images/red-wine.jpg'),(5,'Sparkling Water','Chilled sparkling water with a dash of lime.',2.99,'images/sparkling-water.jpg');
 /*!40000 ALTER TABLE `beverages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `blogs`
+--
+
+DROP TABLE IF EXISTS `blogs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `blogs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text,
+  `image_url` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `blogs`
+--
+
+LOCK TABLES `blogs` WRITE;
+/*!40000 ALTER TABLE `blogs` DISABLE KEYS */;
+INSERT INTO `blogs` VALUES (1,'aa','aaa','1aaa','2025-03-27 11:57:08');
+/*!40000 ALTER TABLE `blogs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contact`
+--
+
+DROP TABLE IF EXISTS `contact`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `contact` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `message` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contact`
+--
+
+LOCK TABLES `contact` WRITE;
+/*!40000 ALTER TABLE `contact` DISABLE KEYS */;
+/*!40000 ALTER TABLE `contact` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -56,7 +110,7 @@ CREATE TABLE `meals` (
   `price` decimal(10,2) DEFAULT NULL,
   `image_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,8 +119,35 @@ CREATE TABLE `meals` (
 
 LOCK TABLES `meals` WRITE;
 /*!40000 ALTER TABLE `meals` DISABLE KEYS */;
-INSERT INTO `meals` VALUES (1,'Grilled Chicken','A delicious grilled chicken served with steamed vegetables and mashed potatoes.',12.99,'images/grilled-chicken.jpg'),(2,'Beef Steak','Juicy beef steak cooked to perfection with a side of fries and salad.',19.99,'images/beef-steak.jpg'),(3,'Vegetarian Pasta','Pasta with fresh vegetables and a creamy tomato sauce.',10.49,'images/vegetarian-pasta.jpg'),(4,'Seafood Paella','A traditional Spanish seafood paella with shrimp, mussels, and saffron rice.',22.50,'images/seafood-paella.jpg'),(5,'BBQ Ribs','Tender BBQ ribs served with cornbread and coleslaw.',18.75,'images/bbq-ribs.jpg');
+INSERT INTO `meals` VALUES (1,'Grilled Chicke','A delicious grilled chicken served with steamed vegetables and mashed potatoes.',12.99,NULL),(2,'Beef Steak','Juicy beef steak cooked to perfection with a side of fries and salad.',19.99,'images/beef-steak.jpg'),(3,'Vegetarian Pasta','Pasta with fresh vegetables and a creamy tomato sauce.',10.49,'images/vegetarian-pasta.jpg'),(4,'Seafood Paella','A traditional Spanish seafood paella with shrimp, mussels, and saffron rice.',22.50,'images/seafood-paella.jpg'),(5,'BBQ Ribs','Tender BBQ ribs served with cornbread and coleslaw.',18.75,'images/bbq-ribs.jpg'),(7,'rice and curry','harima rahai',10.00,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHa1yCd53VSK9EOmNFNXALbJ_2JiMZSSFdZw&s');
 /*!40000 ALTER TABLE `meals` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `offers`
+--
+
+DROP TABLE IF EXISTS `offers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `offers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text,
+  `image_url` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `offers`
+--
+
+LOCK TABLES `offers` WRITE;
+/*!40000 ALTER TABLE `offers` DISABLE KEYS */;
+INSERT INTO `offers` VALUES (1,'aaa','aaa','aaa','2025-03-27 12:41:24');
+/*!40000 ALTER TABLE `offers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -112,8 +193,9 @@ CREATE TABLE `reservations` (
   `guests` int(11) NOT NULL,
   `package_selected` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `reservation_time` time NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +204,7 @@ CREATE TABLE `reservations` (
 
 LOCK TABLES `reservations` WRITE;
 /*!40000 ALTER TABLE `reservations` DISABLE KEYS */;
-INSERT INTO `reservations` VALUES (1,'aaa','aaa@gmail.com','12345678','2025-03-19',1,'Standard Package','2025-03-04 09:35:35'),(2,'aaa','aaa@gmail.com','1234567','1111-11-11',1,'','2025-03-04 09:43:07'),(3,'sss','sss@gmail.com','111','1111-11-11',11,'Standard Package','2025-03-19 06:54:22'),(4,'aaa','aaa@gmail.com','111','0001-11-11',1,'Basic Package','2025-03-19 12:13:24');
+INSERT INTO `reservations` VALUES (2,'aaa','aaa@gmail.com','1234567','1111-11-11',1,'aa','2025-03-04 09:43:07','00:00:00'),(3,'sss','sss@gmail.com','111','1111-11-11',11,'Standard Package','2025-03-19 06:54:22','00:00:00'),(4,'aaa','aaa@gmail.com','111','0001-11-11',1,'Basic Package','2025-03-19 12:13:24','00:00:00'),(5,'aaa','aaa@gmail.com','1234567890','2025-02-26',3,'Basic Package','2025-03-27 10:35:36','16:07:00'),(6,'vihanga','mihirandivihanga@gmail.com','1234567890','2025-03-29',4,'Basic Package','2025-03-27 16:46:40','22:17:00'),(7,'dhanuka','dhanukanuwan2001@gmail.com','1234567890','2025-03-29',5,'Basic Package','2025-03-28 05:52:16','11:25:00');
 /*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +225,7 @@ CREATE TABLE `users` (
   `role` enum('user','admin','manager','waiter','chef','staff') NOT NULL DEFAULT 'user',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +234,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'aa','aa','aa@gmail.com','1234','123456789','user'),(2,'aaaaa','aaaaa','aaa@gmail.com','1234','123456789','user');
+INSERT INTO `users` VALUES (2,'aaa','aaa','aaa@gmail.com','1234','123456789','user'),(3,'aa','aaaaa','sss@gmail.com','1234','123456789','user'),(6,'dhanuka','nuwan','dhanukanuwan2001@gmail.com','1234','123456789','user'),(7,'admin','admin','admin@gmail.com','1234','1234567891','admin'),(8,'vihanga','vihanga','mihirandivihanga@gmail.com','1234','1234567890','user'),(9,'staff','1','staff@gmail.com','1234','1234567890','staff');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -165,4 +247,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-19 21:08:44
+-- Dump completed on 2025-03-28 13:58:57

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.ResultSet, java.util.ArrayList, java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,14 +23,14 @@
         <div class="col-md-9">
           <nav class="d-none d-md-flex justify-content-end align-items-center">
             <a href="home.jsp" class="text-white text-decoration-none me-4 nav-link">Home</a>
-            <a href="about.jsp" class="text-white text-decoration-none me-4 nav-link">about</a>
+            <a href="about.jsp" class="text-white text-decoration-none me-4 nav-link">About</a>
             <a href="menu.jsp" class="text-white text-decoration-none me-4 nav-link">Menu</a>
             <a href="offers.jsp" class="text-white text-decoration-none me-4 nav-link">Offers</a>
             <a href="location.jsp" class="text-white text-decoration-none me-4 nav-link">Location</a>
             <a href="blog.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
             <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact & Feedback</a>
             <a href="book.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
-            <a href="#" class="text-white text-decoration-none">
+            <a href="profile.jsp" class="text-white text-decoration-none">
               <i class="bi bi-person"></i>
             </a>
           </nav>
@@ -37,47 +38,60 @@
       </div>
     </div>
   </header>
+
   <!-- Blog Section -->
   <section class="py-5 text-center">
     <div class="container">
       <h2 class="font-serif fst-italic display-5 text-warning">Our Latest Blog Posts</h2>
-      
-      <!-- Blog Post 1 -->
-      <div class="row mt-4">
-        <div class="col-md-4">
-          <div class="card bg-dark text-white">
-            <img src="assets/blog1.jpg" class="card-img-top" alt="Blog Post 1">
-            <div class="card-body">
-              <h5 class="card-title">The Secrets Behind Our Signature Dishes</h5>
-              <p class="card-text">Discover the inspiration and ingredients behind some of our most popular dishes at Royal Cuisine. A must-read for food enthusiasts!</p>
-              <a href="blog-detail.jsp?id=1" class="btn btn-warning">Read More</a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Blog Post 2 -->
-        <div class="col-md-4">
-          <div class="card bg-dark text-white">
-            <img src="assets/blog2.jpg" class="card-img-top" alt="Blog Post 2">
-            <div class="card-body">
-              <h5 class="card-title">Exploring the Flavors of Our New Beverage Menu</h5>
-              <p class="card-text">From exotic cocktails to refreshing mocktails, our new beverage menu is crafted to complement every meal perfectly.</p>
-              <a href="blog-detail.jsp?id=2" class="btn btn-warning">Read More</a>
-            </div>
-          </div>
-        </div>
 
-        <!-- Blog Post 3 -->
+      <!-- Blog Posts -->
+      <div class="row mt-4">
+        <% 
+          // Database connection details
+          String jdbcURL = "jdbc:mysql://localhost:3308/royal_cuisine";
+          String jdbcUsername = "root";
+          String jdbcPassword = "12345678";
+          
+          List<Blog> blogs = new ArrayList<>();
+          
+          try {
+              // Load MySQL JDBC Driver
+              Class.forName("com.mysql.cj.jdbc.Driver");
+
+              // Establish connection to the database
+              Connection connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+              String sql = "SELECT id, title, description, image_url FROM blogs ORDER BY created_at DESC LIMIT 3";
+              PreparedStatement preparedStatement = connection.prepareStatement(sql);
+              ResultSet resultSet = preparedStatement.executeQuery();
+              
+              // Loop through the result set and add blogs to the list
+              while (resultSet.next()) {
+                  Blog blog = new Blog();
+                  blog.setId(resultSet.getInt("id"));
+                  blog.setTitle(resultSet.getString("title"));
+                  blog.setDescription(resultSet.getString("description"));
+                  blog.setImageUrl(resultSet.getString("image_url"));
+                  blogs.add(blog);
+              }
+              connection.close();
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+          
+          // Display blogs dynamically
+          for (Blog blog : blogs) {
+        %>
         <div class="col-md-4">
           <div class="card bg-dark text-white">
-            <img src="assets/blog3.jpg" class="card-img-top" alt="Blog Post 3">
+            <img src="<%= blog.getImageUrl() %>" class="card-img-top" alt="<%= blog.getTitle() %>">
             <div class="card-body">
-              <h5 class="card-title">Our Commitment to Sustainable Cooking</h5>
-              <p class="card-text">Learn about how Royal Cuisine is embracing sustainable practices, from sourcing local ingredients to reducing waste in our kitchen.</p>
-              <a href="blog-detail.jsp?id=3" class="btn btn-warning">Read More</a>
+              <h5 class="card-title"><%= blog.getTitle() %></h5>
+              <p class="card-text"><%= blog.getDescription() %></p>
+              <a href="blog-detail.jsp?id=<%= blog.getId() %>" class="btn btn-warning">Read More</a>
             </div>
           </div>
         </div>
+        <% } %>
       </div>
 
       <!-- Pagination (optional) -->
@@ -141,3 +155,46 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<%!
+    // Define the Blog class within the JSP to handle blog objects
+    public class Blog {
+        private int id;
+        private String title;
+        private String description;
+        private String imageUrl;
+
+        // Getters and setters
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getImageUrl() {
+            return imageUrl;
+        }
+
+        public void setImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+        }
+    }
+%>

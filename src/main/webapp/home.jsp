@@ -35,7 +35,7 @@
             <a href="blog.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
             <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact & Feedback</a>
             <a href="book.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
-            <a href="#" class="text-white text-decoration-none">
+            <a href="profile.jsp" class="text-white text-decoration-none">
               <i class="bi bi-person"></i>
             </a>
           </nav>
@@ -53,8 +53,8 @@
           <h2 class="font-serif fst-italic display-5 mb-2">Welcome To Royal Cuisine</h2>
           <h1 class="font-serif display-3 mb-4">A Symphony of Luxury & Flavor</h1>
           <div class="d-flex justify-content-center gap-3">
-            <a href="#" class="btn btn-light-gray px-4 py-2">Reserve</a>
-            <a href="#" class="btn btn-light-gray px-4 py-2">Menu</a>
+            <a href="book.jsp" class="btn btn-light-gray px-4 py-2">Reserve</a>
+            <a href="menu.jsp" class="btn btn-light-gray px-4 py-2">Menu</a>
           </div>
         </div>
       </div>

@@ -35,7 +35,7 @@
             <a href="blog.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
             <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact & Feedback</a>
             <a href="book.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
-            <a href="#" class="text-white text-decoration-none">
+            <a href="profile.jsp" class="text-white text-decoration-none">
               <i class="bi bi-person"></i>
             </a>
           </nav>
@@ -44,11 +44,11 @@
     </div>
   </header>
   <!-- About Us Section -->
-  <section class="py-5 text-center" style="background: url('https://media.istockphoto.com/id/1368500097/photo/portrait-of-a-business-owner-smiling-with-his-staff-at-a-restaurant.jpg?s=612x612&w=0&k=20&c=6jCBdOetOc6sMCQlw6bXbGStyXJUdZ2ku2BrL4XQJEg=') no-repeat center center/cover;">
+  <section class="py-5 text-center" style="background: url('https://cdn2.forkly.com/eyJidWNrZXQiOiJvbS1wdWItc3RvcmFnZSIsImtleSI6ImZvcmtseS93cC1jb250ZW50L3VwbG9hZHMvMjAxNi8xMC9CbGFja291dC1DaG9jb2xhdGUtQ3VwY2FrZS1SZWNpcGUtU29jaWFsLTEwMjR4NTM2LmpwZyIsImVkaXRzIjp7IndlYnAiOnsicXVhbGl0eSI6ODB9LCJyZXNpemUiOnsiZml0IjoiY292ZXIiLCJiYWNrZ3JvdW5kIjp7InIiOjAsImciOjAsImIiOjAsImFscGhhIjoxfSwid2lkdGgiOjEyMDAsImhlaWdodCI6NjMwLCJwb3NpdGlvbiI6InRvcCJ9fX0=') no-repeat center center/cover;">
     <div class="container py-5">
       <h2 class="font-serif fst-italic display-5 text-amber">Our Story</h2>
       <p class="text-white fs-4">A Journey of Taste & Excellence</p>
-      <p class="text-gray px-4">
+      <p class="text-white px-4">
         Royal Cuisine was founded with the passion of bringing together flavors from around the world, 
         crafting an unforgettable dining experience that exudes luxury and indulgence. 
         Our team of expert chefs combines traditional techniques with modern innovation, ensuring that each dish 

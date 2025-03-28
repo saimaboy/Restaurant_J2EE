@@ -1,16 +1,15 @@
 package com.royalcuisine.servlets;
 
 import com.royalcuisine.utils.DBConnection;
+import com.royalcuisine.utils.EmailSender; // Import the EmailSender utility
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import jakarta.servlet.ServletException;
-
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 
 public class SignupServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -24,7 +23,7 @@ public class SignupServlet extends HttpServlet {
         String role = request.getParameter("role");
 
         if (role == null || role.isEmpty()) {
-            role = "user"; // Default role
+            role = "user"; // Default role if not provided
         }
 
         Connection conn = null;
@@ -47,7 +46,13 @@ public class SignupServlet extends HttpServlet {
 
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
+                // User registration was successful, send the welcome email
                 System.out.println("User registered successfully!");
+
+                // Send a welcome email
+                sendWelcomeEmail(email, firstName);
+
+                // Redirect to login page
                 response.sendRedirect("login.jsp");
             } else {
                 System.out.println("User registration failed! No rows affected.");
@@ -65,5 +70,14 @@ public class SignupServlet extends HttpServlet {
                 ex.printStackTrace();
             }
         }
+    }
+
+    // Method to send welcome email
+    private void sendWelcomeEmail(String toEmail, String firstName) {
+        String subject = "Welcome to Royal Cuisine!";
+        String body = "Hi " + firstName + ",\n\nWelcome to Royal Cuisine! We are excited to have you as a part of our community.\n\nBest regards,\nRoyal Cuisine Team";
+
+        // Send the email using EmailSender utility
+        EmailSender.sendEmail(toEmail, subject, body);
     }
 }

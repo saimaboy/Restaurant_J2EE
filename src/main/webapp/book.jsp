@@ -33,7 +33,7 @@
             <a href="blog.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
             <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact & Feedback</a>
             <a href="book.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
-            <a href="#" class="text-white text-decoration-none">
+            <a href="profile.jsp" class="text-white text-decoration-none">
               <i class="bi bi-person"></i>
             </a>
           </nav>
@@ -48,7 +48,7 @@
       <div class="row mt-4">
         <% 
         // JDBC connection details
-        String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
+        String jdbcURL = "jdbc:mysql://localhost:3308/royal_cuisine";
         String jdbcUsername = "root";
         String jdbcPassword = "12345678";
         

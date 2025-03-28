@@ -27,14 +27,14 @@
         </div>
         <div class="col-md-9">
           <nav class="d-none d-md-flex justify-content-end align-items-center">
-            <a href="#" class="text-white text-decoration-none me-4 nav-link">Home</a>
-            <a href="#" class="text-white text-decoration-none me-4 nav-link">about</a>
-            <a href="#" class="text-white text-decoration-none me-4 nav-link">Menu</a>
-            <a href="#" class="text-white text-decoration-none me-4 nav-link">Location</a>
-            <a href="#" class="text-white text-decoration-none me-4 nav-link">Blog</a>
-            <a href="#" class="text-white text-decoration-none me-4 nav-link">Contact</a>
+            <a href="login.jsp" class="text-white text-decoration-none me-4 nav-link">Home</a>
+            <a href="login.jsp" class="text-white text-decoration-none me-4 nav-link">about</a>
+            <a href="login.jsp" class="text-white text-decoration-none me-4 nav-link">Menu</a>
+            <a href="login.jsp" class="text-white text-decoration-none me-4 nav-link">Location</a>
+            <a href="login.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
+            <a href="login.jsp" class="text-white text-decoration-none me-4 nav-link">Contact</a>
             <a href="login.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
-            <a href="#" class="text-white text-decoration-none">
+            <a href="login.jsp" class="text-white text-decoration-none">
               <i class="bi bi-person"></i>
             </a>
           </nav>

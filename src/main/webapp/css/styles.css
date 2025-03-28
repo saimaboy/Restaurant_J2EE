@@ -37,12 +37,20 @@ body {
     background-color: #8c7240;
     border-color: #8c7240;
   }
+    /* Buttons */
+  .btn-gold1 {
+    background-color: white;
+    border-color: #8c7240;
+  }
   
   .btn-gold:hover {
     background-color: #f0ad4e;
     border-color: #f0ad4e;
   }
-  
+  .btn-gold1:hover {
+    background-color: white;
+    border-color: #f0ad4e;
+  }
   .btn-light-gray {
     background-color: #d9d9d9;
     border-color: #d9d9d9;

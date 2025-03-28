@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.ResultSet, java.util.ArrayList, java.util.List" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,14 +24,14 @@
         <div class="col-md-9">
           <nav class="d-none d-md-flex justify-content-end align-items-center">
             <a href="home.jsp" class="text-white text-decoration-none me-4 nav-link">Home</a>
-            <a href="about.jsp" class="text-white text-decoration-none me-4 nav-link">about</a>
+            <a href="about.jsp" class="text-white text-decoration-none me-4 nav-link">About</a>
             <a href="menu.jsp" class="text-white text-decoration-none me-4 nav-link">Menu</a>
             <a href="offers.jsp" class="text-white text-decoration-none me-4 nav-link">Offers</a>
             <a href="location.jsp" class="text-white text-decoration-none me-4 nav-link">Location</a>
             <a href="blog.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
             <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact & Feedback</a>
             <a href="book.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
-            <a href="#" class="text-white text-decoration-none">
+            <a href="profile.jsp" class="text-white text-decoration-none">
               <i class="bi bi-person"></i>
             </a>
           </nav>
@@ -44,59 +46,57 @@
       <h2 class="font-serif fst-italic display-5 text-warning">Special Offers</h2>
       <p class="lead">Explore our latest offers and promotions. Enjoy special discounts and more at Royal Cuisine!</p>
 
-      <!-- Offer 1 -->
+      <!-- Offer Cards -->
       <div class="row mt-4">
-        <div class="col-md-4">
-          <div class="card bg-dark text-white">
-            <img src="assets/offer1.jpg" class="card-img-top" alt="Offer 1">
-            <div class="card-body">
-              <h5 class="card-title">50% Off on Selected Meals</h5>
-              <p class="card-text">Get 50% off on selected meals when you dine in with us. Offer valid for a limited time only!</p>
-              <a href="book.jsp" class="btn btn-warning">Book Now</a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Offer 2 -->
-        <div class="col-md-4">
-          <div class="card bg-dark text-white">
-            <img src="assets/offer2.jpg" class="card-img-top" alt="Offer 2">
-            <div class="card-body">
-              <h5 class="card-title">Buy 1 Get 1 Free on Beverages</h5>
-              <p class="card-text">Enjoy our wide range of beverages with our Buy 1 Get 1 Free offer! Perfect for a refreshing treat.</p>
-              <a href="book.jsp" class="btn btn-warning">Book Now</a>
-            </div>
-          </div>
-        </div>
+        <% 
+          // Database connection details
+          String jdbcURL = "jdbc:mysql://localhost:3308/royal_cuisine";
+          String jdbcUsername = "root";
+          String jdbcPassword = "12345678";
+          
+          List<Offer> offers = new ArrayList<>();
+          
+          try {
+              // Load MySQL JDBC Driver
+              Class.forName("com.mysql.cj.jdbc.Driver");
 
-        <!-- Offer 3 -->
+              // Establish connection to the database
+              Connection connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+              String sql = "SELECT id, title, description, image_url FROM offers ORDER BY created_at DESC LIMIT 4";
+              PreparedStatement preparedStatement = connection.prepareStatement(sql);
+              ResultSet resultSet = preparedStatement.executeQuery();
+              
+              // Loop through the result set and add offers to the list
+              while (resultSet.next()) {
+                  Offer offer = new Offer();
+                  offer.setId(resultSet.getInt("id"));
+                  offer.setTitle(resultSet.getString("title"));
+                  offer.setDescription(resultSet.getString("description"));
+                  offer.setImageUrl(resultSet.getString("image_url"));
+                  offers.add(offer);
+              }
+              connection.close();
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+          
+          // Display offers dynamically
+          for (Offer offer : offers) {
+        %>
         <div class="col-md-4">
           <div class="card bg-dark text-white">
-            <img src="assets/offer3.jpg" class="card-img-top" alt="Offer 3">
+            <img src="<%= offer.getImageUrl() %>" class="card-img-top" alt="<%= offer.getTitle() %>">
             <div class="card-body">
-              <h5 class="card-title">Free Dessert with Every Meal</h5>
-              <p class="card-text">Indulge in a complimentary dessert with every main meal. Satisfy your sweet tooth at Royal Cuisine.</p>
+              <h5 class="card-title"><%= offer.getTitle() %></h5>
+              <p class="card-text"><%= offer.getDescription() %></p>
               <a href="book.jsp" class="btn btn-warning">Book Now</a>
             </div>
           </div>
         </div>
+        <% } %>
       </div>
 
-      <!-- Offer 4 (Optional) -->
-      <div class="row mt-4">
-        <div class="col-md-4">
-          <div class="card bg-dark text-white">
-            <img src="assets/offer4.jpg" class="card-img-top" alt="Offer 4">
-            <div class="card-body">
-              <h5 class="card-title">Loyalty Program: Earn Points</h5>
-              <p class="card-text">Join our loyalty program and earn points with every visit. Redeem your points for discounts on future meals.</p>
-              <a href="loyalty.jsp" class="btn btn-warning">Learn More</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pagination (Optional) -->
+      <!-- Pagination (optional) -->
       <div class="mt-4">
         <nav aria-label="Page navigation">
           <ul class="pagination justify-content-center">
@@ -156,3 +156,46 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<%!
+    // Define the Offer class within the JSP to handle offer objects
+    public class Offer {
+        private int id;
+        private String title;
+        private String description;
+        private String imageUrl;
+
+        // Getters and setters
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getImageUrl() {
+            return imageUrl;
+        }
+
+        public void setImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+        }
+    }
+%>
