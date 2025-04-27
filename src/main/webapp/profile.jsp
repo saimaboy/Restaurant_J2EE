@@ -1,95 +1,107 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ page import="jakarta.servlet.http.HttpSession, java.sql.*" %>
+<%@ page import="jakarta.servlet.http.HttpSession, java.sql.*, java.util.Properties, javax.mail.*, javax.mail.internet.*" %>
 
 <%
-    // Database connection details
-    String dbURL = "jdbc:mysql://localhost:3308/royal_cuisine";
+    // --- Database Connection Details ---
+    String dbURL = "jdbc:mysql://localhost:3306/royal_cuisine";
     String dbUser = "root";
     String dbPassword = "12345678";
 
-    // Ensure the user is logged in
+    // --- Email Sending Details ---
+    String senderEmail = "shiyadanu891@gmail.com"; // Replace with your email
+    String senderPassword = "xtlb byjw rmfv vpgf";     // Replace with your app password or email password
+
+    // --- Check if User is Logged In ---
     HttpSession sessionUser = request.getSession(false);
     if (sessionUser == null || sessionUser.getAttribute("email") == null) {
-        response.sendRedirect("login.jsp"); // Redirect to login if not logged in
+        response.sendRedirect("login.jsp");
         return;
     }
-
-    // Get email from session
+    
     String email = (String) sessionUser.getAttribute("email");
+    String first_name = "", last_name = "", contact_number = "";
 
-    // Fetch user details from the database
+    // --- Fetch User Info ---
     Connection conn = null;
     PreparedStatement stmt = null;
     ResultSet rs = null;
-    String first_name = "";
-    String last_name = "";
-    String contact_number = "";
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
         conn = DriverManager.getConnection(dbURL, dbUser, dbPassword);
 
-        // SQL to get user details by email
         String sql = "SELECT first_name, last_name, contact_number FROM users WHERE email = ?";
         stmt = conn.prepareStatement(sql);
-        stmt.setString(1, email); // Set the email to fetch the user details
-
+        stmt.setString(1, email);
         rs = stmt.executeQuery();
 
-        // Check if the user exists in the database
         if (rs.next()) {
             first_name = rs.getString("first_name");
             last_name = rs.getString("last_name");
             contact_number = rs.getString("contact_number");
         } else {
-            out.println("<p>Error: User not found in the database.</p>");
+            out.println("<p>Error: User not found.</p>");
         }
-    } catch (SQLException e) {
+    } catch (Exception e) {
         e.printStackTrace();
-        out.println("<p>Error accessing the database. Please try again later.</p>");
-    } catch (ClassNotFoundException e) {
-        e.printStackTrace();
-        out.println("<p>Error loading the database driver. Please contact support.</p>");
+        out.println("<p>Error loading profile.</p>");
     } finally {
-        try {
-            if (rs != null) rs.close();
-            if (stmt != null) stmt.close();
-            if (conn != null) conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            out.println("<p>Error closing database resources.</p>");
-        }
+        try { if (rs != null) rs.close(); if (stmt != null) stmt.close(); if (conn != null) conn.close(); } catch (SQLException e) { e.printStackTrace(); }
     }
 
-    // Fetch reservation_id from URL parameter to delete reservation
+    // --- Cancel Reservation if reservation_id is provided ---
     String reservation_id = request.getParameter("reservation_id");
 
     if (reservation_id != null) {
         try {
             conn = DriverManager.getConnection(dbURL, dbUser, dbPassword);
 
-            // SQL to delete reservation by ID
+            // Delete reservation
             String sqlDelete = "DELETE FROM reservations WHERE id = ?";
             stmt = conn.prepareStatement(sqlDelete);
-            stmt.setString(1, reservation_id); // Set the reservation ID to delete
+            stmt.setString(1, reservation_id);
 
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
-                out.println("<p>Reservation successfully canceled.</p>");
+                // Successfully canceled. Now send email.
+                String subject = "Reservation Cancellation - Royal Cuisine";
+                String message = "Dear " + first_name + ",\n\nYour reservation has been canceled successfully. We will refund your payment soon.\n\nThank you for choosing Royal Cuisine.\n\nRegards,\nRoyal Cuisine Team";
+
+                // Sending Email
+                Properties props = new Properties();
+                props.put("mail.smtp.host", "smtp.gmail.com");
+                props.put("mail.smtp.port", "587");
+                props.put("mail.smtp.auth", "true");
+                props.put("mail.smtp.starttls.enable", "true");
+
+                Session mailSession = Session.getInstance(props, new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(senderEmail, senderPassword);
+                    }
+                });
+
+                try {
+                    Message mimeMessage = new MimeMessage(mailSession);
+                    mimeMessage.setFrom(new InternetAddress(senderEmail));
+                    mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+                    mimeMessage.setSubject(subject);
+                    mimeMessage.setText(message);
+
+                    Transport.send(mimeMessage);
+
+                    out.println("<script>alert('Reservation canceled and email sent to user.');</script>");
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                    out.println("<script>alert('Reservation canceled but failed to send email.');</script>");
+                }
             } else {
-                out.println("<p>Error: Reservation not found or couldn't be deleted.</p>");
+            	 out.println("<script>alert('Error: Reservation not found or already canceled.');</script>");
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            out.println("<p>Error accessing the database. Please try again later.</p>");
+            out.println("<p>Error canceling reservation.</p>");
         } finally {
-            try {
-                if (stmt != null) stmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                out.println("<p>Error closing database resources.</p>");
-            }
+            try { if (stmt != null) stmt.close(); if (conn != null) conn.close(); } catch (SQLException e) { e.printStackTrace(); }
         }
     }
 %>

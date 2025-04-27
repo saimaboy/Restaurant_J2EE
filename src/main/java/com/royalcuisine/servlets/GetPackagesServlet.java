@@ -62,7 +62,7 @@ public class GetPackagesServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Database connection details
-        String jdbcURL = "jdbc:mysql://localhost:3308/royal_cuisine";
+        String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
         String jdbcUsername = "root";
         String jdbcPassword = "12345678";
 

@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ManagePackagesServlet extends HttpServlet {
 
     // JDBC details
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3308/royal_cuisine";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/royal_cuisine";
     private static final String JDBC_USERNAME = "root";
     private static final String JDBC_PASSWORD = "12345678";
 

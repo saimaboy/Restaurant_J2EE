@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/ProcessPaymentServlet")
+
 public class ProcessPaymentServlet extends HttpServlet {
 
     @Override
@@ -50,7 +50,7 @@ public class ProcessPaymentServlet extends HttpServlet {
 
          // Payment was successful
             System.out.println("✅ Payment succeeded: " + charge.getId());
-            response.sendRedirect("successpayment.jsp");
+            response.sendRedirect("paymentsuccess.jsp");
 
         } catch (NumberFormatException e) {
             System.err.println("❌ Invalid amount format: " + e.getMessage());

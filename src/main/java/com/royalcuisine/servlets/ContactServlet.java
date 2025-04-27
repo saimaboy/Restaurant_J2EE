@@ -27,7 +27,7 @@ public class ContactServlet extends HttpServlet {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Establish database connection (replace with your database credentials)
-            String url = "jdbc:mysql://localhost:3308/royal_cuisine";
+            String url = "jdbc:mysql://localhost:3306/royal_cuisine";
             String dbUser = "root";
             String dbPassword = "12345678";
             conn = DriverManager.getConnection(url, dbUser, dbPassword);

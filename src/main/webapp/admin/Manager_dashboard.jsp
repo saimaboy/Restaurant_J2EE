@@ -4,7 +4,7 @@
 <%@ page import="com.royalcuisine.servlets.MenuServlet.Beverage" %>
 <%
     // Database connection details
-    String dbURL = "jdbc:mysql://localhost:3308/royal_cuisine";
+    String dbURL = "jdbc:mysql://localhost:3306/royal_cuisine";
     String dbUser = "root";
     String dbPassword = "12345678";
 
@@ -176,7 +176,7 @@
                 // JDBC Connection using DriverManager
                 Connection connection = null;
                 try {
-                  String jdbcURL = "jdbc:mysql://localhost:3308/royal_cuisine";
+                  String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
                   String jdbcUsername = "root";
                   String jdbcPassword = "12345678";
 
@@ -221,7 +221,7 @@
               <%
                 // Fetch total users count
                 try {
-                  String jdbcURL = "jdbc:mysql://localhost:3308/royal_cuisine";
+                  String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
                   String jdbcUsername = "root";
                   String jdbcPassword = "12345678";
                   connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
@@ -255,7 +255,7 @@
               <%
                 // Fetch total feedbacks count
                 try {
-                  String jdbcURL = "jdbc:mysql://localhost:3308/royal_cuisine";
+                  String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
                   String jdbcUsername = "root";
                   String jdbcPassword = "12345678";
                   connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);

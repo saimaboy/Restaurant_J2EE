@@ -1,7 +1,8 @@
+// SignupServlet.java
 package com.royalcuisine.servlets;
 
 import com.royalcuisine.utils.DBConnection;
-import com.royalcuisine.utils.EmailSender; // Import the EmailSender utility
+import com.royalcuisine.utils.EmailSender;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,38 +47,36 @@ public class SignupServlet extends HttpServlet {
 
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
-                // User registration was successful, send the welcome email
                 System.out.println("User registered successfully!");
-
-                // Send a welcome email
                 sendWelcomeEmail(email, firstName);
-
-                // Redirect to login page
-                response.sendRedirect("login.jsp");
+                response.sendRedirect("login.jsp"); // Redirect to your login page
             } else {
                 System.out.println("User registration failed! No rows affected.");
-                response.sendRedirect("signup.jsp?error=Signup failed.");
+                response.sendRedirect("signup.jsp?error=Signup failed."); // Redirect back to signup with error
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("SQL Error: " + e.getMessage());
-            response.sendRedirect("signup.jsp?error=Email already registered or invalid data.");
+            System.err.println("SQL Error during signup: " + e.getMessage());
+            // Check for specific SQL errors like duplicate email
+            if (e.getMessage().contains("Duplicate entry") && e.getMessage().contains("email")) {
+                response.sendRedirect("signup.jsp?error=Email address already registered.");
+            } else {
+                response.sendRedirect("signup.jsp?error=Database error during signup.");
+            }
         } finally {
             try {
                 if (stmt != null) stmt.close();
-                if (conn != null) conn.close(); // Close DB connection
+                if (conn != null) conn.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
+                System.err.println("Error closing database resources: " + ex.getMessage());
             }
         }
     }
 
-    // Method to send welcome email
     private void sendWelcomeEmail(String toEmail, String firstName) {
         String subject = "Welcome to Royal Cuisine!";
         String body = "Hi " + firstName + ",\n\nWelcome to Royal Cuisine! We are excited to have you as a part of our community.\n\nBest regards,\nRoyal Cuisine Team";
-
-        // Send the email using EmailSender utility
         EmailSender.sendEmail(toEmail, subject, body);
     }
 }

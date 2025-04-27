@@ -120,21 +120,18 @@
                             </div>
                         </div>
                         
-                        <div class="mb-4 form-check">
-                            <input 
-                                type="checkbox" 
-                                class="form-check-input" 
-                                id="agreeTerms"
-                                required
-                            >
-                            <label class="form-check-label text-danger fw-medium color-black" for="agreeTerms">
-                                I Agree With Privacy and Policy
-                            </label>
-                        </div>
+                      
                         
                         <button type="submit" class="btn custom-button w-100 py-3 fw-semibold">
                             Sign Up
                         </button>
+                        <div class="mb-5 form-check">
+                          
+                        <label class="form-check-label text-white fw-medium" for="agreeTerms">
+                          you already have an account?
+                        </label>
+                        <a href="login.jsp" class="text-danger fw-bold">Login</a>
+                    </div>
                     </form>
                 </div>
             </div>

@@ -126,7 +126,7 @@
                 // JDBC Connection using DriverManager
                 Connection connection = null;
                 try {
-                  String jdbcURL = "jdbc:mysql://localhost:3308/royal_cuisine";
+                  String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
                   String jdbcUsername = "root";
                   String jdbcPassword = "12345678";
 
@@ -171,7 +171,7 @@
               <%
                 // Fetch total users count
                 try {
-                  String jdbcURL = "jdbc:mysql://localhost:3308/royal_cuisine";
+                  String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
                   String jdbcUsername = "root";
                   String jdbcPassword = "12345678";
                   connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
@@ -205,7 +205,7 @@
               <%
                 // Fetch total feedbacks count
                 try {
-                  String jdbcURL = "jdbc:mysql://localhost:3308/royal_cuisine";
+                  String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
                   String jdbcUsername = "root";
                   String jdbcPassword = "12345678";
                   connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);

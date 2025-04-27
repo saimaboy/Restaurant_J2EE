@@ -165,5 +165,34 @@
     <servlet-name>EmailSender</servlet-name>
     <url-pattern>/EmailSender</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <description></description>
+    <display-name>ProcessPaymentServlet</display-name>
+    <servlet-name>ProcessPaymentServlet</servlet-name>
+    <servlet-class>com.royalcuisine.servlets.ProcessPaymentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProcessPaymentServlet</servlet-name>
+    <url-pattern>/ProcessPaymentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DownloadReportServlet</display-name>
+    <servlet-name>DownloadReportServlet</servlet-name>
+    <servlet-class>com.royalcuisine.servlets.DownloadReportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadReportServlet</servlet-name>
+    <url-pattern>/admin/DownloadReportServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ResetPasswordServlet</display-name>
+    <servlet-name>ResetPasswordServlet</servlet-name>
+    <servlet-class>com.royalcuisine.servlets.ResetPasswordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResetPasswordServlet</servlet-name>
+    <url-pattern>/ResetPasswordServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

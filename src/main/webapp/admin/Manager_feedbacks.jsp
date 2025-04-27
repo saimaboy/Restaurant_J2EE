@@ -106,7 +106,7 @@
       </thead>
       <tbody>
         <% 
-        String jdbcURL = "jdbc:mysql://localhost:3308/royal_cuisine";
+        String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
         String jdbcUsername = "root";
         String jdbcPassword = "12345678";
 
