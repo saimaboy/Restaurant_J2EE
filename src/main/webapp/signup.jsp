@@ -1,4 +1,4 @@
-<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.SQLException" %>
+<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.SQLException, java.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,17 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up Form</title>
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/signup.css" rel="stylesheet">
 </head>
 <body>
-    <div class="min-vh-100 d-flex align-items-center justify-content-center background-overlay" >
+    <div class="min-vh-100 d-flex align-items-center justify-content-center background-overlay">
         <div class="container">
+         <!-- Check if there's an error message -->
+       
             <div class="row justify-content-center">
                 <div class="col-md-6 col-lg-5">
                     <h1 class="text-white text-center mb-4 fw-bold">Sign Up</h1>
-                    
+               
                     <form id="signupForm" action="SignupServlet" method="post">
                         <div class="row mb-3">
                             <div class="col-md-6 mb-3 mb-md-0">
@@ -78,7 +82,7 @@
                                 class="btn position-absolute end-0 top-50 translate-middle-y bg-transparent border-0 text-dark me-2 toggle-password"
                                 data-target="password"
                             >
-                                <i class="eye-icon"></i>
+                                <i class="bi bi-eye"></i>
                             </button>
                         </div>
                         
@@ -99,7 +103,7 @@
                                 class="btn position-absolute end-0 top-50 translate-middle-y bg-transparent border-0 text-dark me-2 toggle-password"
                                 data-target="confirmPassword"
                             >
-                                <i class="eye-icon"></i>
+                                <i class="bi bi-eye"></i>
                             </button>
                         </div>
                         
@@ -120,18 +124,15 @@
                             </div>
                         </div>
                         
-                      
-                        
                         <button type="submit" class="btn custom-button w-100 py-3 fw-semibold">
                             Sign Up
                         </button>
                         <div class="mb-5 form-check">
-                          
-                        <label class="form-check-label text-white fw-medium" for="agreeTerms">
-                          you already have an account?
-                        </label>
-                        <a href="login.jsp" class="text-danger fw-bold">Login</a>
-                    </div>
+                            <label class="form-check-label text-white fw-medium" for="agreeTerms">
+                                You already have an account?
+                            </label>
+                            <a href="login.jsp" class="text-danger fw-bold">Login</a>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -141,7 +142,35 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
- 
+    <script type="text/javascript">
+        // Toggle password visibility for both password fields
+        document.querySelectorAll('.toggle-password').forEach(button => {
+            button.addEventListener('click', function () {
+                var target = this.getAttribute('data-target');
+                var passwordField = document.getElementById(target);
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                } else {
+                    passwordField.type = "password";
+                }
+            });
+        });
+     // Validate password and confirm password before submitting
+        document.getElementById("signupForm").addEventListener("submit", function (event) {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                event.preventDefault(); // Prevent form submission
+                alert("Passwords do not match. Please check again.");
+                return false;
+            }
+            
+            // You can add additional validation here if needed, e.g., password strength check
+        });
+        alert("${error}");
+    </script>
+     
 </body>
 </html>
-

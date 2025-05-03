@@ -25,7 +25,7 @@
         <div class="col-md-9">
           <nav class="d-none d-md-flex justify-content-end align-items-center">
             <a href="home.jsp" class="text-white text-decoration-none me-4 nav-link">Home</a>
-            <a href="about.jsp" class="text-white text-decoration-none me-4 nav-link">about</a>
+            <a href="about.jsp" class="text-white text-decoration-none me-4 nav-link">About</a>
             <a href="menu.jsp" class="text-white text-decoration-none me-4 nav-link">Menu</a>
             <a href="offers.jsp" class="text-white text-decoration-none me-4 nav-link">Offers</a>
             <a href="location.jsp" class="text-white text-decoration-none me-4 nav-link">Location</a>
@@ -40,6 +40,7 @@
       </div>
     </div>
   </header>
+
   <!-- Menu Section -->
   <section class="py-5 text-center">
     <div class="container">
@@ -104,58 +105,62 @@
 
         %>
 
-        <!-- Display Meals -->
-        <h3 class="mt-5">Meals</h3>
-        <form action="reservation.jsp" method="POST">
-        <div class="row">
-        <% 
-            if (!mealList.isEmpty()) {
-                for (Meal meal : mealList) {
-        %>
-          <div class="col-md-4 mt-4">
-            <div class="card bg-dark text-white p-3">
-                <img src="<%= meal.getImageUrl() %>" alt="<%= meal.getName() %>" class="card-img-top" />
-                <h3 class="fs-4 mt-3"><%= meal.getName() %></h3>
-                <p><%= meal.getDescription() %></p>
-                <p>$<%= meal.getPrice() %></p>
-                <input type="checkbox" name="meals" value="<%= meal.getName() %>"> Select Meal
-            </div>
-          </div>
-        <% 
+        <!-- Form to Send Table Details and Menu Selection to Reservation Page via URL -->
+        <form action="reservation.jsp" method="GET">
+          
+          <!-- Table Details -->
+          <input type="hidden" name="table_id" value="<%= request.getParameter("table_id") %>">
+          
+          <!-- Meals Selection -->
+          <h3 class="mt-5">Meals</h3>
+          <div class="row">
+            <% 
+                if (!mealList.isEmpty()) {
+                    for (Meal meal : mealList) {
+            %>
+              <div class="col-md-4 mt-4">
+                <div class="card bg-dark text-white p-3">
+                    <img src="<%= meal.getImageUrl() %>" alt="<%= meal.getName() %>" class="card-img-top" />
+                    <h3 class="fs-4 mt-3"><%= meal.getName() %></h3>
+                    <p><%= meal.getDescription() %></p>
+                    <p>$<%= meal.getPrice() %></p>
+                    <input type="checkbox" name="meals" value="<%= meal.getName() %>">
+                    <input type="hidden" name="meal_images" value="<%= meal.getImageUrl() %>">
+                    Select Meal
+                </div>
+              </div>
+            <% 
+                    }
                 }
-            }
-        %>
-        </div>
-
-        <!-- Display Beverages -->
-        <h3 class="mt-5">Beverages</h3>
-        <div class="row">
-        <% 
-            if (!beverageList.isEmpty()) {
-                for (Beverage beverage : beverageList) {
-        %>
-          <div class="col-md-4 mt-4">
-            <div class="card bg-dark text-white p-3">
-                <img src="<%= beverage.getImageUrl() %>" alt="<%= beverage.getName() %>" class="card-img-top" />
-                <h3 class="fs-4 mt-3"><%= beverage.getName() %></h3>
-                <p><%= beverage.getDescription() %></p>
-                <p>$<%= beverage.getPrice() %></p>
-                <input type="checkbox" name="beverages" value="<%= beverage.getName() %>"> Select Beverage
-            </div>
+            %>
           </div>
-        <% 
-                }
-            }
-        %>
-        </div>
 
-        <!-- Pass Package Data and Submit -->
-        <input type="hidden" name="package" value="<%= request.getParameter("package") %>">
-        
-        <!-- Book Button -->
-        <div class="mt-4">
-            <button type="submit" class="btn btn-gold">Proceed to Book</button>
-        </div>
+          <!-- Beverages Selection -->
+          <h3 class="mt-5">Beverages</h3>
+          <div class="row">
+            <% 
+                if (!beverageList.isEmpty()) {
+                    for (Beverage beverage : beverageList) {
+            %>
+              <div class="col-md-4 mt-4">
+                <div class="card bg-dark text-white p-3">
+                    <img src="<%= beverage.getImageUrl() %>" alt="<%= beverage.getName() %>" class="card-img-top" />
+                    <h3 class="fs-4 mt-3"><%= beverage.getName() %></h3>
+                    <p><%= beverage.getDescription() %></p>
+                    <p>$<%= beverage.getPrice() %></p>
+                    <input type="checkbox" name="beverages" value="<%= beverage.getName() %>">
+                    <input type="hidden" name="beverage_images" value="<%= beverage.getImageUrl() %>">
+                    Select Beverage
+                </div>
+              </div>
+            <% 
+                    }
+                }
+            %>
+          </div>
+
+          <!-- Submit the Form to Reservation Page -->
+          <button type="submit" class="btn btn-warning mt-4">Proceed to Reservation</button>
         </form>
     </div>
   </section>

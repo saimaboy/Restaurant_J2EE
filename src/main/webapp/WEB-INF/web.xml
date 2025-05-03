@@ -195,4 +195,24 @@
     <servlet-name>ResetPasswordServlet</servlet-name>
     <url-pattern>/ResetPasswordServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TableReservationServlet</display-name>
+    <servlet-name>TableReservationServlet</servlet-name>
+    <servlet-class>com.royalcuisine.servlets.TableReservationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TableReservationServlet</servlet-name>
+    <url-pattern>/TableReservationServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TableManagementServlet</display-name>
+    <servlet-name>TableManagementServlet</servlet-name>
+    <servlet-class>com.royalcuisine.servlets.TableManagementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TableManagementServlet</servlet-name>
+    <url-pattern>/admin/TableManagementServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

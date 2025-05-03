@@ -229,7 +229,7 @@
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     connBookings = DriverManager.getConnection(dbURL, dbUser, dbPassword);
 
-                    String sql = "SELECT id, reservation_date, guests, package_selected, created_at FROM reservations WHERE email = ?";
+                    String sql = "SELECT id, reservation_date, guests, table_id, created_at FROM reservations WHERE email = ?";
                     stmtBookings = connBookings.prepareStatement(sql);
                     stmtBookings.setString(1, email);
                     rsBookings = stmtBookings.executeQuery();
@@ -237,17 +237,17 @@
                     while (rsBookings.next()) {
                         String reservationDate = rsBookings.getString("reservation_date");
                         String guests = rsBookings.getString("guests");
-                        String packageSelected = rsBookings.getString("package_selected");
+                        String table_id = rsBookings.getString("table_id");
                         int reservationIdFromDb = rsBookings.getInt("id");
             %>
             <div class="booking-item">
                 <p><strong>Reservation Date:</strong> <%= reservationDate %></p>
-                <p><strong>Package:</strong> <%= packageSelected %></p>
+                <p><strong>Table Number :</strong> <%= table_id %></p>
                 <p><strong>Guests:</strong> <%= guests %></p>
                 <p><strong>Created at:</strong> <%= rsBookings.getString("created_at") %></p>
 
                 <!-- Send reservation details to payment page via URL parameters -->
-                <a href="payment.jsp?reservation_id=<%= reservationIdFromDb %>&reservation_date=<%= reservationDate %>&guests=<%= guests %>&package_selected=<%= packageSelected %>" class="btnp" style="width:200px;">Pay Now</a>
+                <a href="payment.jsp?reservation_id=<%= reservationIdFromDb %>&reservation_date=<%= reservationDate %>&guests=<%= guests %>&table_id=<%= table_id %>" class="btnp" style="width:200px;">Pay Now</a>
 
                 <!-- Cancel Reservation Link -->
                 <a href="profile.jsp?reservation_id=<%= reservationIdFromDb %>" class="btnp" style="width:200px;">Cancel Reservation</a>

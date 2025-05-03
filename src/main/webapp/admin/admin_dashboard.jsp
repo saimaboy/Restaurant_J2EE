@@ -9,7 +9,7 @@
 
     HttpSession sessionUser = request.getSession(false);
     if (sessionUser == null || sessionUser.getAttribute("email") == null) {
-        response.sendRedirect("/admin/login.jsp");
+        response.sendRedirect("../login.jsp");
         return;
     }
 
@@ -212,6 +212,7 @@
     <a href="admin_reservations.jsp">Manage Reservations</a>
     <a href="admin_offers.jsp">Manage Offers</a>
     <a href="admin_feedbacks.jsp">Manage Feedbacks</a>
+        <a href="admin_tables.jsp">Manage tables</a>
     <a href="admin_packages.jsp">Manage Packages</a>
     <a href="admin_blogs.jsp">Manage Blogs</a>
   </div>
