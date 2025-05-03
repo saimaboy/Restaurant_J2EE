@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact & Feedback - Royal Cuisine</title>
+  <title>Contact - Royal Cuisine</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -28,7 +28,8 @@
             <a href="offers.jsp" class="text-white text-decoration-none me-4 nav-link">Offers</a>
             <a href="location.jsp" class="text-white text-decoration-none me-4 nav-link">Location</a>
             <a href="blog.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
-            <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact & Feedback</a>
+            <a href="feedback.jsp" class="text-white text-decoration-none me-4 nav-link">Feedback</a>
+            <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact</a>
             <a href="book.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
             <a href="profile.jsp" class="text-white text-decoration-none">
               <i class="bi bi-person"></i>
@@ -42,7 +43,7 @@
   <!-- Contact Us Section -->
   <section class="py-5 text-center">
     <div class="container">
-      <h2 class="font-serif fst-italic display-5 text-warning">Contact & Feedback</h2>
+      <h2 class="font-serif fst-italic display-5 text-warning">Contact</h2>
       <p class="lead">We would love to hear from you! Please fill out the form below or reach out to us through any of the contact methods listed.</p>
 
       <!-- Contact Form -->

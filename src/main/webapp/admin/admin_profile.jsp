@@ -1,7 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.ResultSet" %>
 <%@ page import="java.util.List, java.util.ArrayList" %>
 <%@ page import="com.royalcuisine.servlets.MenuServlet.Meal" %>
 <%@ page import="com.royalcuisine.servlets.MenuServlet.Beverage" %>
+
 <%
     String dbURL = "jdbc:mysql://localhost:3306/royal_cuisine";
     String dbUser = "root";
@@ -130,75 +132,7 @@
     }
   </style>
 
-  <script type="text/javascript">
-    google.charts.load('current', {packages: ['corechart', 'bar']});
-    google.charts.setOnLoadCallback(drawCharts);
-
-    function drawCharts() {
-      // Pie Chart
-      var pieData = google.visualization.arrayToDataTable([
-        ['Category', 'Count'],
-        ['Reservations', <%= totalReservations %>],
-        ['Users', <%= totalUsers %>],
-        ['Feedbacks', <%= totalFeedbacks %>]
-      ]);
-
-      var pieOptions = {
-        title: 'Overall System Statistics',
-        backgroundColor: '#1a1a1a',
-        legend: {textStyle: {color: 'white'}},
-        titleTextStyle: {color: 'white'},
-        pieHole: 0.4
-      };
-
-      var pieChart = new google.visualization.PieChart(document.getElementById('chart_pie'));
-      pieChart.draw(pieData, pieOptions);
-
-      // Bar Chart
-      var barData = google.visualization.arrayToDataTable([
-        ['Category', 'Count', { role: 'style' }],
-        ['Reservations', <%= totalReservations %>, 'color: #f1c40f'],
-        ['Users', <%= totalUsers %>, 'color: #e67e22'],
-        ['Feedbacks', <%= totalFeedbacks %>, 'color: #9b59b6']
-      ]);
-
-      var barOptions = {
-        title: 'Detailed System Data',
-        backgroundColor: '#1a1a1a',
-        legend: 'none',
-        titleTextStyle: {color: 'white'},
-        hAxis: {textStyle: {color: 'white'}},
-        vAxis: {textStyle: {color: 'white'}},
-      };
-
-      var barChart = new google.visualization.ColumnChart(document.getElementById('chart_bar'));
-      barChart.draw(barData, barOptions);
-
-      // Line Chart (Simulated Data)
-      var lineData = google.visualization.arrayToDataTable([
-        ['Month', 'Reservations'],
-        ['Jan',  40],
-        ['Feb',  55],
-        ['Mar',  70],
-        ['Apr',  65],
-        ['May',  80],
-        ['Jun',  <%= totalReservations %>] // June shows current reservations total
-      ]);
-
-      var lineOptions = {
-        title: 'Reservations Over the Last 6 Months',
-        curveType: 'function',
-        backgroundColor: '#1a1a1a',
-        legend: { position: 'bottom', textStyle: {color: 'white'} },
-        titleTextStyle: {color: 'white'},
-        hAxis: {textStyle: {color: 'white'}},
-        vAxis: {textStyle: {color: 'white'}}
-      };
-
-      var lineChart = new google.visualization.LineChart(document.getElementById('chart_line'));
-      lineChart.draw(lineData, lineOptions);
-    }
-  </script>
+  
 </head>
 
 <body>
@@ -213,7 +147,7 @@
     <a href="admin_offers.jsp">Manage Offers</a>
     <a href="admin_feedbacks.jsp">Manage Feedbacks</a>
     <a href="admin_contact.jsp">Manage Inquiries</a>
-        <a href="admin_tables.jsp">Manage tables</a>
+    <a href="admin_tables.jsp">Manage Tables</a>
     <a href="admin_packages.jsp">Manage Packages</a>
     <a href="admin_blogs.jsp">Manage Blogs</a>
   </div>
@@ -225,93 +159,38 @@
     </div>
     <div class="topbar-right">
       <div class="dropdown">
-<a href="admin_message.jsp" class="btn text-white user-icon">
-  <i class="bi bi-chat"></i> 
-</a>
+        <a href="admin_message.jsp" class="btn text-white user-icon">
+          <i class="bi bi-chat"></i> 
+        </a>
 
-<a href="admin_profile.jsp" class="btn text-white user-icon">
-  <i class="bi bi-person"></i> 
-</a>
+        <a href="admin_profile.jsp" class="btn text-white user-icon">
+          <i class="bi bi-person"></i> 
+        </a>
         <ul class="dropdown-menu" aria-labelledby="userDropdown">
-       
           <li><a class="dropdown-item" href="#">Email: <%= session.getAttribute("email") %></a></li>
           <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="../login.jsp">Logout</a></li>
+          <li><a class="dropdown-item" href="../login.jsp">Logout</a></li>
         </ul>
       </div>
     </div>
   </div>
-
 
   <!-- Content Section -->
   <div class="content">
     <h3>Admin Dashboard</h3>
 
     <div class="admin-info">
-      <h4>Admin Details</h4>
+      <h4>Admin Profile</h4>
       <p><strong>Email:</strong> <%= session.getAttribute("email") %></p>
       <p><strong>Role:</strong> Administrator</p>
-    </div>
-<form action="DownloadReportServlet" method="post">
-  <button type="submit" class="btn btn-warning">Download Report</button>
-</form>
-
-    <hr class="my-4">
-
-    <h4>Statistics</h4>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card bg-dark text-white mb-4">
-          <div class="card-body">
-            <h5 class="card-title">Total Reservations</h5>
-            <p class="card-text"><%= totalReservations %></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card bg-dark text-white mb-4">
-          <div class="card-body">
-            <h5 class="card-title">Total Users</h5>
-            <p class="card-text"><%= totalUsers %></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card bg-dark text-white mb-4">
-          <div class="card-body">
-            <h5 class="card-title">Total Feedbacks</h5>
-            <p class="card-text"><%= totalFeedbacks %></p>
-          </div>
-        </div>
-      </div>
+      <button type="submit" class="btn btn-warning"><a class="dropdown-item" href="../login.jsp">Logout</a></button>
     </div>
 
-    <div class="card bg-dark text-white mb-4">
-      <div class="card-body">
-        <h5 class="card-title">Analytics Overview</h5>
-        <div id="chart_pie" style="width: 100%; height: 400px;"></div>
-      </div>
-    </div>
 
-    <div class="card bg-dark text-white mb-4">
-      <div class="card-body">
-        <h5 class="card-title">Detailed System Data</h5>
-        <div id="chart_bar" style="width: 100%; height: 400px;"></div>
-      </div>
-    </div>
-
-    <div class="card bg-dark text-white">
-      <div class="card-body">
-        <h5 class="card-title">Reservations Over Time</h5>
-        <div id="chart_line" style="width: 100%; height: 400px;"></div>
-      </div>
-    </div>
-
+    
+      
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>

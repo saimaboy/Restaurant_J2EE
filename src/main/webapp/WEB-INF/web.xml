@@ -215,4 +215,24 @@
     <servlet-name>TableManagementServlet</servlet-name>
     <url-pattern>/admin/TableManagementServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FeedbackServlet</display-name>
+    <servlet-name>FeedbackServlet</servlet-name>
+    <servlet-class>com.royalcuisine.servlets.FeedbackServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FeedbackServlet</servlet-name>
+    <url-pattern>/FeedbackServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SendMessageServlet</display-name>
+    <servlet-name>SendMessageServlet</servlet-name>
+    <servlet-class>com.royalcuisine.servlets.SendMessageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SendMessageServlet</servlet-name>
+    <url-pattern>/admin/SendMessageServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

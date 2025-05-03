@@ -32,6 +32,7 @@
             <a href="login.jsp" class="text-white text-decoration-none me-4 nav-link">Menu</a>
             <a href="login.jsp" class="text-white text-decoration-none me-4 nav-link">Location</a>
             <a href="login.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
+            <a href="feedback.jsp" class="text-white text-decoration-none me-4 nav-link">Feedback</a>
             <a href="login.jsp" class="text-white text-decoration-none me-4 nav-link">Contact</a>
             <a href="login.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
             <a href="login.jsp" class="text-white text-decoration-none">

@@ -125,6 +125,7 @@
     <a href="Manager_dashboard.jsp">Dashboard</a>
     <a href="Manager_menu.jsp">Manage Menu</a>
     <a href="Manager_users.jsp">Manage Users</a>
+      <a href="Manager_tables.jsp">Manage Tables</a>
     <a href="Manager_reservations.jsp">Manage Reservations</a>
     <a href="Manager_feedbacks.jsp">Manage Feedbacks</a>
   </div>

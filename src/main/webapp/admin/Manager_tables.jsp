@@ -12,12 +12,13 @@
     }
 %>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manage Tables - Royal Cuisine</title>
+  <title>Manage Menu - Royal Cuisine</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -68,45 +69,37 @@
 </head>
 <body class="bg-black text-white">
 
- <!-- Sidebar -->
+    <!-- Sidebar -->
   <div class="sidebar">
-    <h2 class="text-gold fw-bold">Admin Panel</h2>
-    <a href="admin_dashboard.jsp">Dashboard</a>
-    <a href="admin_menu.jsp">Manage Menu</a>
-    <a href="admin_users.jsp">Manage Users</a>
-    <a href="admin_reservations.jsp">Manage Reservations</a>
-    <a href="admin_offers.jsp">Manage Offers</a>
-    <a href="admin_feedbacks.jsp">Manage Feedbacks</a>
-    <a href="admin_contact.jsp">Manage Inquiries</a>
-        <a href="admin_tables.jsp">Manage tables</a>
-    <a href="admin_packages.jsp">Manage Packages</a>
-    <a href="admin_blogs.jsp">Manage Blogs</a>
+    <h2 class="text-gold fw-bold">Staff Panel</h2>
+    <a href="Manager_dashboard.jsp">Dashboard</a>
+    <a href="Manager_menu.jsp">Manage Menu</a>
+    <a href="Manager_users.jsp">Manage Users</a>
+      <a href="Manager_tables.jsp">Manage Tables</a>
+    <a href="Manager_reservations.jsp">Manage Reservations</a>
+    <a href="Manager_feedbacks.jsp">Manage Feedbacks</a>
   </div>
+
 
   <!-- Topbar with User Icon -->
   <div class="topbar">
     <div class="topbar-left">
-      <h4>Royal Cuisine Admin</h4>
+      <h4>Royal Cuisine </h4>
     </div>
     <div class="topbar-right">
       <div class="dropdown">
-<a href="admin_message.jsp" class="btn text-white user-icon">
-  <i class="bi bi-chat"></i> 
-</a>
-
-<a href="admin_profile.jsp" class="btn text-white user-icon">
-  <i class="bi bi-person"></i> 
-</a>
+        <button class="btn text-white user-icon" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-person"></i>
+        </button>
         <ul class="dropdown-menu" aria-labelledby="userDropdown">
-       
+    
           <li><a class="dropdown-item" href="#">Email: <%= session.getAttribute("email") %></a></li>
           <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="../login.jsp">Logout</a></li>
+                 <li><a class="dropdown-item" href="../login.jsp">Logout</a></li>
         </ul>
       </div>
     </div>
   </div>
-
 
   <!-- Content Section for Table Management -->
   <div class="content">

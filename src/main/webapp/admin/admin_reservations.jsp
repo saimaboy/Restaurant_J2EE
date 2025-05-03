@@ -68,7 +68,7 @@
 </head>
 <body class="bg-black text-white">
 
-  <!-- Sidebar -->
+<!-- Sidebar -->
   <div class="sidebar">
     <h2 class="text-gold fw-bold">Admin Panel</h2>
     <a href="admin_dashboard.jsp">Dashboard</a>
@@ -77,6 +77,8 @@
     <a href="admin_reservations.jsp">Manage Reservations</a>
     <a href="admin_offers.jsp">Manage Offers</a>
     <a href="admin_feedbacks.jsp">Manage Feedbacks</a>
+    <a href="admin_contact.jsp">Manage Inquiries</a>
+        <a href="admin_tables.jsp">Manage tables</a>
     <a href="admin_packages.jsp">Manage Packages</a>
     <a href="admin_blogs.jsp">Manage Blogs</a>
   </div>
@@ -88,13 +90,18 @@
     </div>
     <div class="topbar-right">
       <div class="dropdown">
-        <button class="btn text-white user-icon" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="bi bi-person"></i>
-        </button>
+<a href="admin_message.jsp" class="btn text-white user-icon">
+  <i class="bi bi-chat"></i> 
+</a>
+
+<a href="admin_profile.jsp" class="btn text-white user-icon">
+  <i class="bi bi-person"></i> 
+</a>
         <ul class="dropdown-menu" aria-labelledby="userDropdown">
+       
           <li><a class="dropdown-item" href="#">Email: <%= session.getAttribute("email") %></a></li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="../login.jsp">Logout</a></li>
+                <li><a class="dropdown-item" href="../login.jsp">Logout</a></li>
         </ul>
       </div>
     </div>

@@ -1,6 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.ResultSet" %>
-
+<%
+    try {
+        // Load MySQL JDBC driver
+        Class.forName("com.mysql.cj.jdbc.Driver");
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+        out.println("<div class='alert alert-danger'>Error: Unable to load MySQL JDBC driver. " + e.getMessage() + "</div>");
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +19,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="css/styles.css">
   <style>
+    body {
+      background-color: black;
+      color: white;
+    }
     .sidebar {
       height: 100%;
       width: 250px;
@@ -22,7 +34,6 @@
       padding-top: 20px;
       padding-left: 20px;
     }
-
     .sidebar a {
       color: white;
       text-decoration: none;
@@ -31,16 +42,13 @@
       margin-bottom: 10px;
       border-radius: 5px;
     }
-
     .sidebar a:hover {
       background-color: #f1c40f;
     }
-
     .content {
       margin-left: 250px;
       padding: 20px;
     }
-
     .topbar {
       background-color: #000;
       color: white;
@@ -49,43 +57,46 @@
       justify-content: space-between;
       align-items: center;
     }
-
-    .topbar .user-icon {
-      cursor: pointer;
+    .admin-info {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+    .admin-info h4 {
+      color: #f1c40f;
     }
   </style>
 </head>
 <body class="bg-black text-white">
 
-    <!-- Sidebar -->
+  <!-- Sidebar -->
   <div class="sidebar">
-    <h2 class="text-gold fw-bold">Manager Panel</h2>
-    <a href="Manager_dashboard.jsp">Dashboard</a>
-    <a href="Manager_menu.jsp">Manage Menu</a>
-    <a href="Manager_users.jsp">Manage Users</a>
-      <a href="Manager_tables.jsp">Manage Tables</a>
-    <a href="Manager_reservations.jsp">Manage Reservations</a>
-    <a href="Manager_feedbacks.jsp">Manage Feedbacks</a>
+    <h2 class="text-gold fw-bold">Admin Panel</h2>
+    <a href="admin_dashboard.jsp">Dashboard</a>
+    <a href="admin_menu.jsp">Manage Menu</a>
+    <a href="admin_users.jsp">Manage Users</a>
+    <a href="admin_reservations.jsp">Manage Reservations</a>
+    <a href="admin_offers.jsp">Manage Offers</a>
+    <a href="admin_feedbacks.jsp">Manage Feedbacks</a>
+    <a href="admin_contact.jsp">Manage Inquiries</a>
+    <a href="admin_tables.jsp">Manage Tables</a>
+    <a href="admin_packages.jsp">Manage Packages</a>
+    <a href="admin_blogs.jsp">Manage Blogs</a>
   </div>
 
-
-  <!-- Topbar with User Icon -->
+  <!-- Topbar -->
   <div class="topbar">
     <div class="topbar-left">
-      <h4>Royal Cuisine </h4>
+      <h4>Royal Cuisine Admin</h4>
     </div>
     <div class="topbar-right">
-      <div class="dropdown">
-        <button class="btn text-white user-icon" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="bi bi-person"></i>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="userDropdown">
-          
-          <li><a class="dropdown-item" href="#">Email: <%= session.getAttribute("email") %></a></li>
-          <li><hr class="dropdown-divider"></li>
-                 <li><a class="dropdown-item" href="../login.jsp">Logout</a></li>
-        </ul>
-      </div>
+      <a href="admin_message.jsp" class="btn text-white user-icon">
+        <i class="bi bi-chat"></i> 
+      </a>
+      <a href="admin_profile.jsp" class="btn text-white user-icon">
+        <i class="bi bi-person"></i> 
+      </a>
     </div>
   </div>
 
@@ -125,36 +136,15 @@
           <td><%= resultSet.getString("phone") %></td>
           <td><%= resultSet.getString("message") %></td>
           <td>
-            <!-- Edit Feedback Button (Optional) -->
-            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editFeedbackModal<%= resultSet.getInt("id") %>">Edit</button>
-
+            <!-- Chat Icon for Sending Email -->
+            <a href="admin_message.jsp?email=<%= resultSet.getString("email") %>&message=<%= resultSet.getString("message") %>" class="btn btn-success btn-sm">
+              <i class="bi bi-chat"></i> Send Message
+            </a>
             <!-- Delete Feedback Button -->
             <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteFeedbackModal<%= resultSet.getInt("id") %>">Delete</button>
 
-            <!-- Edit Feedback Modal (Optional) -->
-            <div class="modal fade" id="editFeedbackModal<%= resultSet.getInt("id") %>" tabindex="-1" aria-labelledby="editFeedbackModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="editFeedbackModalLabel">Edit Feedback</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <form action="ManageFeedbacksServlet" method="POST">
-                      <input type="hidden" name="id" value="<%= resultSet.getInt("id") %>" />
-                      <div class="mb-3">
-                        <label for="feedbackMessage" class="form-label">Message</label>
-                        <textarea class="form-control" name="feedbackMessage" rows="3" required><%= resultSet.getString("message") %></textarea>
-                      </div>
-                      <button type="submit" class="btn btn-warning" name="action" value="editFeedback">Update Feedback</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <!-- Delete Feedback Modal -->
-            <div class="modal fade" id="deleteFeedbackModal<%= resultSet.getInt("id") %>" tabindex="-1" aria-labelledby="deleteFeedbackModalLabel" aria-hidden="true">
+            <div style="color:black;" class="modal fade" id="deleteFeedbackModal<%= resultSet.getInt("id") %>" tabindex="-1" aria-labelledby="deleteFeedbackModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">

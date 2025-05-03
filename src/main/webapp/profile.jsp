@@ -197,7 +197,8 @@
             <a href="offers.jsp" class="text-white text-decoration-none me-4 nav-link">Offers</a>
             <a href="location.jsp" class="text-white text-decoration-none me-4 nav-link">Location</a>
             <a href="blog.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
-            <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact & Feedback</a>
+            <a href="feedback.jsp" class="text-white text-decoration-none me-4 nav-link">Feedback</a>
+            <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact</a>
             <a href="book.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
             <a href="profile.jsp" class="text-white text-decoration-none">
               <i class="bi bi-person"></i>
@@ -235,12 +236,14 @@
                     rsBookings = stmtBookings.executeQuery();
 
                     while (rsBookings.next()) {
+                    	 String id = rsBookings.getString("id");
                         String reservationDate = rsBookings.getString("reservation_date");
                         String guests = rsBookings.getString("guests");
                         String table_id = rsBookings.getString("table_id");
                         int reservationIdFromDb = rsBookings.getInt("id");
             %>
             <div class="booking-item">
+            <p><strong>Reservation No:</strong> <%= id %></p>
                 <p><strong>Reservation Date:</strong> <%= reservationDate %></p>
                 <p><strong>Table Number :</strong> <%= table_id %></p>
                 <p><strong>Guests:</strong> <%= guests %></p>

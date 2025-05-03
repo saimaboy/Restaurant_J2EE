@@ -2,16 +2,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Location - Royal Cuisine</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Royal Cuisine</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-black text-white">
-
-   <!-- Header/Navigation -->
+  <!-- Header/Navigation -->
   <header class="py-3 bg-black">
     <div class="container">
       <div class="row align-items-center">
@@ -38,26 +37,43 @@
       </div>
     </div>
   </header>
-
-  <!-- Location Section -->
+  <!-- Contact Form Section -->
   <section class="py-5 text-center">
     <div class="container">
-      <h2 class="font-serif fst-italic display-5 text-warning">Our Location</h2>
-      <p class="lead">We are located in the heart of the city, ready to serve you with delicious meals and exquisite drinks. Visit us for an unforgettable dining experience.</p>
-      
-      <!-- Address -->
-      <h4 class="mt-4">Royal Cuisine Restaurant</h4>
-      <p>
-        1234 Royal Street, Downtown, Cityname, Country<br>
-        Phone: +123 456 7890<br>
-        Email: contact@royalcuisine.com
-      </p>
+      <h2 class="font-serif fst-italic display-5 text-warning">Feedback</h2>
+      <p class="lead">We would love to hear from you! Please fill out the form below or reach out to us through any of the contact methods listed.</p>
 
-      <!-- Google Map Embed -->
-      <div class="mt-4">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.313035588287!2d144.96305831531456!3d-37.8141067797516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5c2ed7a533%3A0x5045675218cfc50!2sRoyal%20Cuisine!5e0!3m2!1sen!2sus!4v1624384097223!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-      </div>
+     
 
+      <!-- Contact Form -->
+      <form action="FeedbackServlet" method="POST" class="border p-4 mx-auto" style="max-width: 600px;">
+        <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="booking_no" class="form-label">Booking Number</label>
+            <input type="text" class="form-control" id="booking_no" name="booking_no" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="phone" name="phone" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="message" class="form-label">Your Message</label>
+            <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-warning">Send Message</button>
+      </form>
     </div>
   </section>
 
@@ -70,21 +86,9 @@
           <div class="row">
             <div class="col-6">Monday</div>
             <div class="col-6">9:00 - 24:00</div>
-            <div class="col-6">Tuesday</div>
-            <div class="col-6">9:00 - 24:00</div>
-            <div class="col-6">Wednesday</div>
-            <div class="col-6">9:00 - 24:00</div>
-            <div class="col-6">Thursday</div>
-            <div class="col-6">9:00 - 24:00</div>
-            <div class="col-6">Friday</div>
-            <div class="col-6">9:00 - 02:00</div>
-            <div class="col-6">Saturday</div>
-            <div class="col-6">9:00 - 02:00</div>
-            <div class="col-6">Sunday</div>
-            <div class="col-6">9:00 - 02:00</div>
+            <!-- Add other days -->
           </div>
         </div>
-        
         <div class="col-md-4 mb-4 mb-md-0">
           <h3 class="fs-4 mb-4">Newsletter</h3>
           <div class="d-flex flex-column gap-2">
@@ -92,7 +96,6 @@
             <button class="btn btn-gold text-white">Subscribe</button>
           </div>
         </div>
-
         <div class="col-md-4 px-4">
           <h3 class="fs-4 mb-4">Instagram</h3>
           <div class="d-flex align-items-center">
