@@ -2,21 +2,27 @@ package com.royalcuisine.servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import com.royalcuisine.utils.DBConnection;
+
 
 public class TableReservationServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // Table Model Class
     public static class Table {
+    	private int tableId;
         private int tableNumber;
         private int capacity;
         private boolean isAvailable;
@@ -25,6 +31,14 @@ public class TableReservationServlet extends HttpServlet {
         private String description;
 
         // Getters and Setters
+        
+        public int getTableId() {
+            return tableId;
+        }
+
+        public void setTableId(int tableId) {
+            this.tableId = tableId;
+        }
 
         public int getTableNumber() {
             return tableNumber;
@@ -79,7 +93,7 @@ public class TableReservationServlet extends HttpServlet {
         // JDBC connection details
         String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
         String jdbcUsername = "root";
-        String jdbcPassword = "12345678";
+        String jdbcPassword = "1234";
 
         List<Table> tableList = new ArrayList<>();
 
@@ -120,4 +134,29 @@ public class TableReservationServlet extends HttpServlet {
         request.setAttribute("tableList", tableList);
         request.getRequestDispatcher("/book.jsp").forward(request, response);
     }
+    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String reservationDate = request.getParameter("reservation_date");
+        String reservationTime = request.getParameter("reservation_time");
+        String phone = request.getParameter("phone");
+        int guests = Integer.parseInt(request.getParameter("guests"));
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement("UPDATE reservations SET reservation_date = ?, reservation_time = ?, phone = ?, guests = ? WHERE id = ?")) {
+            
+            stmt.setDate(1, Date.valueOf(reservationDate));
+            stmt.setTime(2, Time.valueOf(reservationTime));
+            stmt.setString(3, phone);
+            stmt.setInt(4, guests);
+            stmt.setInt(5, id);
+
+            stmt.executeUpdate();
+            response.sendRedirect("admin_reservations.jsp?success=Users Reservation Updated Successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendRedirect("admin_reservations.jsp?error=Reservations Updated Unsuccessfully. Please try Again");
+        }
+    }
+
 }

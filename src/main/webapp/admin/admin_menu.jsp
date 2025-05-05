@@ -69,19 +69,7 @@
 <body class="bg-black text-white">
 
 <!-- Sidebar -->
-  <div class="sidebar">
-    <h2 class="text-gold fw-bold">Admin Panel</h2>
-    <a href="admin_dashboard.jsp">Dashboard</a>
-    <a href="admin_menu.jsp">Manage Menu</a>
-    <a href="admin_users.jsp">Manage Users</a>
-    <a href="admin_reservations.jsp">Manage Reservations</a>
-    <a href="admin_offers.jsp">Manage Offers</a>
-    <a href="admin_feedbacks.jsp">Manage Feedbacks</a>
-    <a href="admin_contact.jsp">Manage Inquiries</a>
-        <a href="admin_tables.jsp">Manage tables</a>
-    <a href="admin_packages.jsp">Manage Packages</a>
-    <a href="admin_blogs.jsp">Manage Blogs</a>
-  </div>
+<jsp:include page="includes/sidebar.jsp" />
 
   <!-- Topbar with User Icon -->
   <div class="topbar">
@@ -172,7 +160,7 @@
         <% 
         String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
         String jdbcUsername = "root";
-        String jdbcPassword = "12345678";
+        String jdbcPassword = "1234";
         
         try {
             Connection connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
@@ -185,7 +173,7 @@
         <tr>
           <td><%= resultSet.getString("name") %></td>
           <td><%= resultSet.getString("description") %></td>
-          <td>$<%= resultSet.getDouble("price") %></td>
+          <td>Rs.<%= resultSet.getDouble("price") %></td>
           <td><img src="<%= resultSet.getString("image_url") %>" width="50" alt="<%= resultSet.getString("name") %>"></td>
           <td>
             <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editMealModal<%= resultSet.getInt("id") %>">Edit</button>
@@ -282,7 +270,7 @@
         <tr>
           <td><%= resultSet.getString("name") %></td>
           <td><%= resultSet.getString("description") %></td>
-          <td>$<%= resultSet.getDouble("price") %></td>
+          <td>Rs.<%= resultSet.getDouble("price") %></td>
           <td><img src="<%= resultSet.getString("image_url") %>" width="50" alt="<%= resultSet.getString("name") %>"></td>
           <td>
             <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editBeverageModal<%= resultSet.getInt("id") %>">Edit</button>

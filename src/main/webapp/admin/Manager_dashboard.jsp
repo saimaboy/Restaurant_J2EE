@@ -6,7 +6,7 @@
     // Database connection details
     String dbURL = "jdbc:mysql://localhost:3306/royal_cuisine";
     String dbUser = "root";
-    String dbPassword = "12345678";
+    String dbPassword = "1234";
 
     // Ensure the user is logged in
     HttpSession sessionUser = request.getSession(false);
@@ -224,7 +224,7 @@
                 try {
                   String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
                   String jdbcUsername = "root";
-                  String jdbcPassword = "12345678";
+                  String jdbcPassword = "1234";
                   connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
 
                   String sql = "SELECT COUNT(*) AS total FROM users";
@@ -258,7 +258,7 @@
                 try {
                   String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
                   String jdbcUsername = "root";
-                  String jdbcPassword = "12345678";
+                  String jdbcPassword = "1234";
                   connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
 
                   String sql = "SELECT COUNT(*) AS total FROM contact";

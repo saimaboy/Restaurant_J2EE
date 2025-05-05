@@ -17,22 +17,42 @@
     ResultSet rs = null;
 
     try {
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/royal_cuisine", "root", "12345678");
-        if (table_id != null) {
-            String sql = "SELECT price FROM tables WHERE table_id = ?";
-            stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, Integer.parseInt(table_id));
-            rs = stmt.executeQuery();
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/royal_cuisine", "root", "1234");
 
-            if (rs.next()) {
-                totalAmount = rs.getDouble("price");
-            } else {
-                totalAmount = 0.0; // Default to 0.0 if no price found
-            }
+        String mealSql = "SELECT rm.quantity, m.price " +
+                         "FROM reservation_meals rm " +
+                         "JOIN meals m ON rm.meal_name = m.name " +
+                         "WHERE rm.reservation_id = ?";
+        stmt = conn.prepareStatement(mealSql);
+        stmt.setString(1, reservation_id);
+        rs = stmt.executeQuery();
+        while (rs.next()) {
+            int qty = rs.getInt("quantity");
+            double price = rs.getDouble("price");
+            totalAmount += qty * price;
         }
+        rs.close();
+        stmt.close();
+
+        String bevSql = "SELECT rb.quantity, b.price " +
+                        "FROM reservation_beverages rb " +
+                        "JOIN beverages b ON rb.beverage_name = b.name " +
+                        "WHERE rb.reservation_id = ?";
+        stmt = conn.prepareStatement(bevSql);
+        stmt.setString(1, reservation_id);
+        rs = stmt.executeQuery();
+        while (rs.next()) {
+            int qty = rs.getInt("quantity");
+            double price = rs.getDouble("price");
+            totalAmount += qty * price;
+        }
+        rs.close();
+        stmt.close();
+
+        System.out.println("Total: Rs " + String.format("%.2f", totalAmount));
     } catch (SQLException e) {
         e.printStackTrace();
-        totalAmount = 0.0; // Default to 0.0 in case of errors
+        totalAmount = 0.0; 
     } finally {
         try {
             if (rs != null) rs.close();
@@ -42,7 +62,7 @@
             ex.printStackTrace();
         }
     }
-    // At this point, totalAmount contains the price for the selected table
+
 %>
 
 <!DOCTYPE html>
@@ -134,7 +154,6 @@
                     <a href="menu.jsp" class="text-white text-decoration-none me-4 nav-link">Menu</a>
                     <a href="offers.jsp" class="text-white text-decoration-none me-4 nav-link">Offers</a>
                     <a href="location.jsp" class="text-white text-decoration-none me-4 nav-link">Location</a>
-                    <a href="blog.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
                     <a href="feedback.jsp" class="text-white text-decoration-none me-4 nav-link">Feedback</a>
                     <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact</a>
                     <a href="book.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
@@ -163,7 +182,7 @@
                 <p><strong>Reservation Date:</strong> <%= reservation_date %></p>
                 <p><strong>Guests:</strong> <%= guests %></p>
 
-                <h4>Total Amount: $<%= totalAmount %></h4>
+                <h4>Total Amount: Rs <%= String.format("%.2f", totalAmount) %></h4>
             </div>
 
             <!-- Stripe Payment Form -->
@@ -192,22 +211,7 @@
         <div class="row">
             <div class="col-md-4 mb-4 mb-md-0">
                 <h3 class="fs-4 mb-4">Open Hours</h3>
-                <div class="row">
-                    <div class="col-6">Monday</div>
-                    <div class="col-6">9:00 - 24:00</div>
-                    <div class="col-6">Tuesday</div>
-                    <div class="col-6">9:00 - 24:00</div>
-                    <div class="col-6">Wednesday</div>
-                    <div class="col-6">9:00 - 24:00</div>
-                    <div class="col-6">Thursday</div>
-                    <div class="col-6">9:00 - 24:00</div>
-                    <div class="col-6">Friday</div>
-                    <div class="col-6">9:00 - 02:00</div>
-                    <div class="col-6">Saturday</div>
-                    <div class="col-6">9:00 - 02:00</div>
-                    <div class="col-6">Sunday</div>
-                    <div class="col-6">9:00 - 02:00</div>
-                </div>
+                <jsp:include page="/include/hours.jsp" />
             </div>
 
             <div class="col-md-4 mb-4 mb-md-0">

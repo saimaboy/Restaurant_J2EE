@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In Form</title>
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/signup.css" rel="stylesheet">
@@ -24,7 +22,7 @@
                         <div class="mb-3">
                             <div class="form-floating">
                                 <input 
-                                    type="email" 
+                                    type="text" 
                                     class="form-control custom-input" 
                                     id="emailAddress" 
                                     name="emailAddress"
@@ -111,6 +109,21 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <%
+	    String errorMessage = request.getParameter("error");
+	%>
+		<script>
+	    <% if (errorMessage != null) { %>
+	        Swal.fire({
+	            icon: 'error',
+	            title: 'Oops...',
+	            text: '<%= errorMessage %>'
+	        });
+	    <% } %>
+	</script>
+	
 
     <!-- Custom JS -->
     <script>

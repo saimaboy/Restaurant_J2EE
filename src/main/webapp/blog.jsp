@@ -51,7 +51,7 @@
           // Database connection details
           String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
           String jdbcUsername = "root";
-          String jdbcPassword = "12345678";
+          String jdbcPassword = "1234";
           
           List<Blog> blogs = new ArrayList<>();
           

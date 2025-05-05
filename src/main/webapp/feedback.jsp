@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="jakarta.servlet.http.HttpSession, java.sql.*, java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.SQLException" %>
+<%@ page import="com.royalcuisine.utils.DBConnection" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +27,6 @@
             <a href="menu.jsp" class="text-white text-decoration-none me-4 nav-link">Menu</a>
             <a href="offers.jsp" class="text-white text-decoration-none me-4 nav-link">Offers</a>
             <a href="location.jsp" class="text-white text-decoration-none me-4 nav-link">Location</a>
-            <a href="blog.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
             <a href="feedback.jsp" class="text-white text-decoration-none me-4 nav-link">Feedback</a>
             <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact</a>
             <a href="book.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
@@ -53,9 +54,37 @@
         </div>
 
         <div class="mb-3">
-            <label for="booking_no" class="form-label">Booking Number</label>
-            <input type="text" class="form-control" id="booking_no" name="booking_no" required>
-        </div>
+		    <label for="booking_no" class="form-label">Order Number</label>
+		    <select class="form-control text-dark" id="booking_no" name="booking_no" required>
+		        <option class="text-dark" value="">-- Select Booking Number --</option>
+		        <%
+		            String userEmail = (String) session.getAttribute("email"); 
+		            Connection conn = null;
+		            PreparedStatement stmt = null;
+		            ResultSet rs = null;
+		
+		            try {
+		                conn = DBConnection.getConnection();
+		                stmt = conn.prepareStatement("SELECT order_id FROM reservations WHERE email = ? AND payment_status = 'complete'");
+		                stmt.setString(1, userEmail);
+		                rs = stmt.executeQuery();
+		
+		                while (rs.next()) {
+		                    String orderId = rs.getString("order_id");
+		        %>
+		                    <option value="<%= orderId %>"><%= orderId %></option>
+		        <%
+		                }
+		            } catch (Exception e) {
+		                out.println("<option disabled>Error loading bookings</option>");
+		                e.printStackTrace();
+		            } finally {
+		                try { if (rs != null) rs.close(); if (stmt != null) stmt.close(); if (conn != null) conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+		            }
+		        %>
+		    </select>
+		</div>
+
 
         <div class="mb-3">
             <label for="email" class="form-label">Email Address</label>
@@ -83,11 +112,7 @@
       <div class="row">
         <div class="col-md-4 mb-4 mb-md-0">
           <h3 class="fs-4 mb-4">Open Hours</h3>
-          <div class="row">
-            <div class="col-6">Monday</div>
-            <div class="col-6">9:00 - 24:00</div>
-            <!-- Add other days -->
-          </div>
+          <jsp:include page="/include/hours.jsp" />
         </div>
         <div class="col-md-4 mb-4 mb-md-0">
           <h3 class="fs-4 mb-4">Newsletter</h3>

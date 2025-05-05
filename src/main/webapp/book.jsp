@@ -32,7 +32,6 @@
             <a href="menu.jsp" class="text-white text-decoration-none me-4 nav-link">Menu</a>
             <a href="offers.jsp" class="text-white text-decoration-none me-4 nav-link">Offers</a>
             <a href="location.jsp" class="text-white text-decoration-none me-4 nav-link">Location</a>
-            <a href="blog.jsp" class="text-white text-decoration-none me-4 nav-link">Blog</a>
             <a href="feedback.jsp" class="text-white text-decoration-none me-4 nav-link">Feedback</a>
             <a href="contact.jsp" class="text-white text-decoration-none me-4 nav-link">Contact</a>
             <a href="book.jsp" class="btn btn-gold text-white me-4">Book a Table</a>
@@ -48,13 +47,13 @@
   <!-- Table Availability Section -->
   <section class="py-5 text-center">
     <div class="container">
-      <h2 class="font-serif fst-italic display-5 text-amber">Available Tables</h2>
+      <h2 class="font-serif display-5 text-amber">Available Tables</h2>
       <div class="row mt-4">
         <% 
         // JDBC connection details
         String jdbcURL = "jdbc:mysql://localhost:3306/royal_cuisine";
         String jdbcUsername = "root";
-        String jdbcPassword = "12345678";
+        String jdbcPassword = "1234";
 
         List<Table> tableList = new ArrayList<>();
 
@@ -64,7 +63,7 @@
             Connection connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
 
             // Step 2: Query to fetch table data
-            String sql = "SELECT table_number, capacity, is_available, image_url, price, description FROM tables";
+            String sql = "SELECT table_id, table_number, capacity, is_available, image_url, price, description FROM tables";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
@@ -72,6 +71,7 @@
             while (resultSet.next()) {
                 Table table = new Table();
                 table.setTableNumber(resultSet.getInt("table_number"));
+                table.setTableId(resultSet.getInt("table_id"));
                 table.setCapacity(resultSet.getInt("capacity"));
                 table.setAvailable(resultSet.getBoolean("is_available"));
                 table.setImageUrl(resultSet.getString("image_url"));
@@ -99,15 +99,24 @@
             for (Table tbl : tableList) {
         %>
         <div class="col-md-4 mb-4">
-          <div class="card bg-dark text-white p-3">
-            <img src="<%= tbl.getImageUrl() %>" alt="Table <%= tbl.getTableNumber() %>" class="card-img-top" />
-            <h3 class="fs-4 mt-3"><%= tbl.getTableNumber() %></h3>
+        	<%
+			    boolean isAvailable = tbl.isAvailable();
+			    String statusClass = isAvailable ? "badge-available" : "badge-unavailable";
+			    String statusText = isAvailable ? "Available" : "Unavailable";
+			    String cardClass = isAvailable ? "card-opa-not" : "card-opa";
+			%>
+          <div class="card bg-dark text-white p-3 <%= cardClass %>">
+            <img src="<%= tbl.getImageUrl() %>" alt="Table <%= tbl.getTableNumber() %>" class="card-img-top" style="width: 100%; height: 250px; border-radius: 10px; object-fit: cover;" />
+            <h4 class="fs-4 mt-3 ">Table Number: <%= tbl.getTableNumber() %></h4>
             <p>Capacity: <%= tbl.getCapacity() %> people</p>
-            <p>Status: <%= tbl.isAvailable() ? "Available" : "Unavailable" %></p>
-            <p>Price: $<%= tbl.getPrice() %> per person</p>
-            <p>Description: <%= tbl.getDescription() %></p>
+ 
+			
+			<p>Status: <span class="<%= statusClass %> ext-amber font-serif fst-italic"><%= statusText %></span></p>
+
+            <!-- <p>Price: <%= tbl.getPrice() %> per person</p> -->
+            <p class="ext-amber font-serif fst-italic">Description: <%= tbl.getDescription() %></p>
             <form action="menu.jsp" method="GET">
-              <input type="hidden" name="table_id" value="<%= tbl.getTableNumber() %>">
+              <input type="hidden" name="table_id" value="<%= tbl.getTableId() %>">
               <% if (tbl.isAvailable()) { %>
                 <button type="submit" class="btn btn-gold">Reserve Table</button>
               <% } else { %>
@@ -135,22 +144,7 @@
         <!-- Open Hours -->
         <div class="col-md-4 mb-4 mb-md-0">
           <h3 class="fs-4 mb-4">Open Hours</h3>
-          <div class="row">
-            <div class="col-6">Monday</div>
-            <div class="col-6">9:00 - 24:00</div>
-            <div class="col-6">Tuesday</div>
-            <div class="col-6">9:00 - 24:00</div>
-            <div class="col-6">Wednesday</div>
-            <div class="col-6">9:00 - 24:00</div>
-            <div class="col-6">Thursday</div>
-            <div class="col-6">9:00 - 24:00</div>
-            <div class="col-6">Friday</div>
-            <div class="col-6">9:00 - 02:00</div>
-            <div class="col-6">Saturday</div>
-            <div class="col-6">9:00 - 02:00</div>
-            <div class="col-6">Sunday</div>
-            <div class="col-6">9:00 - 02:00</div>
-          </div>
+<jsp:include page="/include/hours.jsp" />
         </div>
         
         <!-- Newsletter -->
